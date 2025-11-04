@@ -1,0 +1,1464 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Google</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght300;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* --- NEW: Disclaimer Popup Styles --- */
+      #disclaimer-popup {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+          z-index: 9998; /* Just below loading screen */
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          visibility: hidden; /* Start hidden */
+          opacity: 0;
+          backdrop-filter: blur(5px);
+          -webkit-backdrop-filter: blur(5px);
+          transition: opacity 0.3s ease, visibility 0.3s ease;
+      }
+
+      /* This class will be added by JS to show it */
+      #disclaimer-popup.visible {
+          visibility: visible;
+          opacity: 1;
+      }
+
+      .popup-content {
+          background-color: var(--secondary-bg);
+          padding: 30px;
+          border-radius: var(--border-radius);
+          box-shadow: var(--shadow-light-bottom), var(--shadow-light-top);
+          text-align: center;
+          max-width: 400px;
+          color: var(--text-color);
+      }
+
+      .popup-content h3 {
+          font-size: 1.8em;
+          font-weight: 700;
+          color: var(--primary-color);
+          margin-top: 0;
+      }
+
+      .popup-content p {
+          font-size: 1.1em;
+          line-height: 1.6;
+          margin-bottom: 25px;
+      }
+
+      .popup-agree {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 10px;
+          margin-bottom: 20px;
+      }
+
+      .popup-agree input[type="checkbox"] {
+          width: 18px;
+          height: 18px;
+          accent-color: var(--primary-color);
+      }
+
+      .popup-agree label {
+          font-weight: 500;
+      }
+
+      #agree-button {
+          font-family: var(--font-stack);
+          font-size: 1.1em;
+          font-weight: 700;
+          color: white;
+          background-color: var(--primary-color);
+          border: none;
+          border-radius: 8px;
+          padding: 12px 30px;
+          cursor: pointer;
+          transition: background-color 0.2s, opacity 0.2s;
+      }
+
+      #agree-button:disabled {
+          background-color: #999;
+          opacity: 0.6;
+          cursor: not-allowed;
+      }
+      /* ADD THIS to your main <style> tag */
+      .settings-item input[type="text"] {
+          padding: 10px 15px;
+          border-radius: var(--border-radius);
+          border: 1px solid var(--line-color);
+          background-color: var(--secondary-bg);
+          color: var(--text-color);
+          box-shadow: var(--shadow-inset-light);
+          font-size: 1em;
+          min-width: 200px;
+          font-family: var(--font-stack); /* Ensures font matches */
+      }
+      .settings-item input[type="text"]::placeholder {
+          color: var(--text-color);
+          opacity: 0.6;
+      }
+
+      /* NEW: Hide/Show logic for custom options */
+      #custom-cloak-options {
+          display: none; /* Hidden by default */
+          width: 100%;
+
+          /* These match the .settings-container structure */
+          flex-direction: column;
+          gap: 1px;
+          align-items: center;
+      }
+
+      #custom-cloak-options.visible {
+          display: flex; /* This class will be added by JS to show it */
+      }
+
+      /* Fix the gap issue inside the wrapper */
+      #custom-cloak-options .settings-item {
+           gap: 15px;
+      }
+              /* --- Loading Screen Styles (Neumorphic) --- */
+              #loading-screen {
+                  position: fixed;
+                  top: 0;
+                  left: 0;
+                  width: 100%;
+                  height: 100%;
+                  background-color: var(--bg-color); /* Matches page background */
+                  z-index: 10000; /* Ensure it's on top of everything */
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  opacity: 1;
+                  visibility: visible;
+                  transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+              }
+              #loading-screen.hidden {
+                  opacity: 0;
+                  visibility: hidden;
+                  pointer-events: none; /* Allows clicks on elements below it */
+              }
+
+              .loader-container {
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                  gap: 20px;
+                  padding: 40px;
+                  border-radius: var(--border-radius);
+                  background-color: var(--secondary-bg);
+                  /* Soft Neumorphic Inset/Outset */
+                  box-shadow: var(--shadow-light-top), var(--shadow-light-bottom);
+              }
+
+              .loader-container p {
+                  font-size: 1.2em;
+                  font-weight: 500;
+                  color: var(--primary-color);
+              }
+
+              /* Loader Circle (Spinning Neumorphic Ring) */
+              .loader-circle {
+                  width: 60px;
+                  height: 60px;
+                  border-radius: 50%;
+                  /* Create the 'hollow' effect with the border */
+                  border: 5px solid var(--primary-light);
+                  border-top-color: var(--primary-color); /* The spinning part */
+                  animation: spin 1s linear infinite;
+                  /* Inset shadow to make it look embedded */
+                  box-shadow: var(--shadow-inset-light);
+              }
+
+              @keyframes spin {
+                  0% { transform: rotate(0deg); }
+                  100% { transform: rotate(360deg); }
+              }
+              /* --- MODERN NEUMORPHIC / GLASS MORPHISM VARIABLES --- */
+              :root {
+                  --bg-color: #e0e5ec; /* Light, soft background (Neumorphism base) */
+                  --text-color: #333333;
+                  --primary-color: #4c68ff; /* Vibrant blue */
+                  --primary-light: #7c90ff;
+                  --primary-dark: #3a50cc;
+                  --secondary-bg: #e0e5ec; /* Secondary background matches main background for soft UI */
+                  --border-radius: 12px;
+                  --font-stack: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+                  --glass-color: rgba(255, 255, 255, 0.4); /* Light Mode Glass */
+                  --line-color: rgba(0, 0, 0, 0.07); /* Subtle dark lines */
+                  /* --- MODIFIED: Added star color --- */
+                  --star-color: #E5B500;
+
+                  /* Neumorphic Shadows (Light Mode) */
+                  --shadow-light-top: -6px -6px 12px #ffffff;
+                  --shadow-light-bottom: 6px 6px 12px rgba(0, 0, 0, 0.15);
+                  --shadow-inset-light: inset 2px 2px 5px rgba(0, 0, 0, 0.1), inset -2px -2px 5px #ffffff;
+              }
+
+              [data-theme="dark"] {
+                  --bg-color: #1e2023; /* Deep, muted dark background */
+                  --text-color: #f0f0f0;
+                  --primary-color: #6a7eff; /* Adjusted vibrant blue for dark mode */
+                  --secondary-bg: #1e2023;
+                  --glass-color: rgba(30, 32, 35, 0.6); /* Dark Mode Glass */
+                  --line-color: rgba(255, 255, 255, 0.08); /* Subtle light lines */
+                  /* --- MODIFIED: Added star color for dark mode --- */
+                  --star-color: #FFFACD; /* Lemon Chiffon */
+
+                  /* Neumorphic Shadows (Dark Mode) */
+                  --shadow-dark-top: -6px -6px 12px #34343e;
+                  --shadow-dark-bottom: 6px 6px 12px #101214;
+                  --shadow-inset-dark: inset 2px 2px 5px #101214, inset -2px -2px 5px #34343e;
+
+                  /* Override shadows to dark versions */
+                  --shadow-light-top: var(--shadow-dark-top);
+                  --shadow-light-bottom: var(--shadow-dark-bottom);
+                  --shadow-inset-light: var(--shadow-inset-dark);
+              }
+
+              /* 1. ANIMATED GRADIENT (AURORA) */
+              @keyframes aurora-motion {
+                  0% { background-position: 0% 0%; }
+                  50% { background-position: 100% 50%; }
+                  100% { background-position: 0% 0%; }
+              }
+
+              /* 2. LINE / GRID ANIMATION */
+              @keyframes moveLines {
+                  0% { background-position: 0 0; }
+                  100% { background-position: 100% 100%; } /* Moves the repeating background lines diagonally */
+              }
+
+              /* --- Global & Base Styles --- */
+              body {
+                  font-family: var(--font-stack);
+                  background-color: var(--bg-color);
+                  color: var(--text-color);
+                  margin: 0;
+                  padding: 0;
+                  overflow: hidden;
+                  transition: background-color 0.4s ease-in-out, color 0.4s ease-in-out;
+              }
+
+              /* --- Main Menu (Modified to hold all sections and be padded for the new tab bar) --- */
+              #main-menu {
+                  height: 100vh;
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                  justify-content: center;
+                  text-align: center;
+                  padding-top: 50px; /* Space for the new top tabs */
+                  box-sizing: border-box;
+              }
+
+              /* --- NEW: Dynamic Background Pattern System --- */
+              #main-menu[data-pattern="lines"],
+              #main-menu[data-pattern="lines"][data-theme="dark"] {
+                  background-image:
+                      linear-gradient(to right, var(--line-color) 1px, transparent 1px),
+                      linear-gradient(to bottom, var(--line-color) 1px, transparent 1px),
+                      linear-gradient(45deg, var(--bg-color) 0%, var(--primary-light) 10%, transparent 50%, var(--bg-color) 100%),
+                      linear-gradient(-45deg, var(--bg-color) 0%, rgba(255, 165, 0, 0.2) 10%, transparent 50%, var(--bg-color) 100%);
+                  background-size:
+                      50px 50px, 50px 50px,
+                      400% 400%, 400% 400%;
+                  animation:
+                      moveLines 90s linear infinite,
+                      aurora-motion 30s ease infinite;
+              }
+
+              #main-menu[data-pattern="stripes"] {
+                   background-image:
+                      repeating-linear-gradient(45deg, var(--line-color) 0, var(--line-color) 1px, transparent 1px, transparent 30px),
+                      linear-gradient(45deg, var(--bg-color) 0%, var(--primary-light) 10%, transparent 50%, var(--bg-color) 100%),
+                      linear-gradient(-45deg, var(--bg-color) 0%, rgba(255, 165, 0, 0.2) 10%, transparent 50%, var(--bg-color) 100%);
+                  background-size:
+                      auto,
+                      400% 400%, 400% 400%;
+                   animation: aurora-motion 30s ease infinite;
+              }
+
+              #main-menu[data-pattern="dots"] {
+                  background-image:
+                      radial-gradient(var(--line-color) 3px, transparent 1px),
+                      linear-gradient(45deg, var(--bg-color) 0%, var(--primary-light) 10%, transparent 50%, var(--bg-color) 100%),
+                      linear-gradient(-45deg, var(--bg-color) 0%, rgba(255, 165, 0, 0.2) 10%, transparent 50%, var(--bg-color) 100%);
+                  background-size:
+                      40px 40px,
+                      400% 400%, 400% 400%;
+                  animation: aurora-motion 30s ease infinite;
+              }
+
+              /* --- MODIFIED: New cartoon star style --- */
+              #main-menu[data-pattern="stars"] {
+                   background-image:
+                      /* Small stars */
+                      radial-gradient(circle at 20px 80px, var(--star-color) 0.5px, transparent 0.5px),
+                      /* Medium stars */
+                      radial-gradient(circle at 50px 50px, var(--star-color) 1px, transparent 1px),
+                      /* Large stars */
+                      radial-gradient(circle at 90px 20px, var(--star-color) 1.5px, transparent 1.5px),
+                      /* Aurora layers */
+                      linear-gradient(45deg, var(--bg-color) 0%, var(--primary-light) 10%, transparent 50%, var(--bg-color) 100%),
+                      linear-gradient(-45deg, var(--bg-color) 0%, rgba(255, 165, 0, 0.2) 10%, transparent 50%, var(--bg-color) 100%);
+                  background-size:
+                      100px 100px, 100px 100px, 100px 100px, /* Each star layer has its own large canvas to look random */
+                      400% 400%, 400% 400%;
+                   animation: aurora-motion 30s ease infinite;
+              }
+
+              #main-menu[data-pattern="none"] {
+                  background-image:
+                      linear-gradient(45deg, var(--bg-color) 0%, var(--primary-light) 10%, transparent 50%, var(--bg-color) 100%),
+                      linear-gradient(-45deg, var(--bg-color) 0%, rgba(255, 165, 0, 0.2) 10%, transparent 50%, var(--bg-color) 100%);
+                  background-size:
+                      400% 400%, 400% 400%;
+                  animation: aurora-motion 30s ease infinite;
+              }
+
+              #main-menu h2 {
+                  font-size: 3.2em;
+                  font-weight: 900;
+                  color: var(--primary-color);
+                  margin-bottom: 10px;
+                  letter-spacing: -1px;
+                  transition: color 0.3s;
+                  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+              }
+              #current-time {
+                  font-size: 1.3em;
+                  font-weight: 300;
+                  margin-bottom: 50px;
+                  opacity: 0.8;
+              }
+
+              /* New Styles for Tab Sections */
+              .menu-tab-content {
+                  display: none; /* Hide all tab content by default */
+                  flex-direction: column;
+                  align-items: center;
+                  justify-content: center;
+                  /* Allow content to take up the space */
+                  flex-grow: 1;
+                  width: 100%;
+              }
+              .menu-tab-content.active {
+                  display: flex; /* Show the active tab content */
+              }
+              .menu-section-title {
+                  font-size: 1.5em;
+                  font-weight: 700;
+                  color: var(--text-color);
+                  margin-bottom: 15px;
+                  padding: 5px 15px;
+                  border-bottom: 2px solid var(--primary-color);
+              }
+
+              .menu-buttons {
+                  display: flex;
+                  gap: 20px;
+                  flex-wrap: wrap;
+                  justify-content: center;
+              }
+
+
+
+      /* --- Tab Bar Styling (Floating Pod Look) --- */
+      #tab-bar {
+          position: fixed;
+          top: 15px; /* Move down to float */
+          left: 50%;
+          transform: translateX(-50%); /* Center it horizontally */
+          display: flex;
+          justify-content: center;
+          padding: 12px 15px; /* Reduced padding for compact look */
+          z-index: 100;
+
+          /* Pod Appearance */
+          border-radius: 50px; /* Highly rounded corners for pod/pill shape */
+          backdrop-filter: blur(12px); /* Slightly stronger blur */
+          -webkit-backdrop-filter: blur(12px);
+          background-color: var(--glass-color);
+          /* Neumorphic/Floating Shadow */
+          box-shadow: var(--shadow-light-bottom);
+          border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle white border */
+      }
+      #tab-bar button {
+        background-color: transparent;
+        color: var(--text-color);
+          /* Adjust buttons inside the pod */
+          padding: 8px 18px; /* More compact buttons */
+          margin: 0 4px;
+          font-size: 1em;
+          font-weight: 600;
+          border-radius: 30px; /* Pill-shaped buttons */
+      }
+      #tab-bar button.active-tab {
+          /* Active button highlight inside the pod */
+          color: white;
+          background-color: var(--primary-color);
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Lifted appearance */
+          transform: none; /* Keep active button flat */
+          background-color: var(--primary-color);
+      }
+      /* ⭐ NEW DARK MODE OVERRIDE (For inactive buttons) ⭐ */
+      [data-theme="dark"] #tab-bar button {
+          color: var(--text-color); /* This will be a light color (#f0f0f0) in dark mode */
+      }
+
+      [data-theme="dark"] #tab-bar button:hover:not(.active-tab) {
+          /* Darker hover effect using a slightly brighter version of the dark background */
+          background-color: rgba(255, 255, 255, 0.15);
+      }
+      /* ⭐ NEW DARK MODE OVERRIDE (For active button) ⭐ */
+      [data-theme="dark"] #tab-bar button.active-tab {
+          /* The primary color (blue) is usually sufficient for the background in dark mode,
+             but we ensure the text color is still white for contrast. */
+          color: var(--bg-color); /* Uses the dark background color (#1e2023) to contrast white text */
+          background-color: var(--primary-light); /* Use the lighter primary shade for better visibility on dark glass */
+      }
+      #tab-bar button:hover:not(.active-tab) {
+          /* In Light Mode, this resolves to a subtle grey tint on hover */
+          background-color: rgba(0, 0, 0, 0.08);
+      }
+              /* --- Button Styling (Neumorphic) --- */
+              .menu-buttons button, #iframe-nav button {
+                  color: var(--text-color);
+                  background-color: var(--secondary-bg);
+                  border: none;
+                  cursor: pointer;
+                  transition: all 0.25s ease-in-out;
+                  box-shadow: var(--shadow-light-bottom), var(--shadow-light-top);
+                  font-weight: 500;
+                  display: flex;
+                  align-items: center;
+                  gap: 8px;
+              }
+              .menu-buttons button {
+                  padding: 20px 40px;
+                  margin: 0;
+                  border-radius: var(--border-radius);
+                  font-size: 1.1em;
+              }
+              .menu-buttons button:hover {
+                  transform: scale(0.98);
+                  background-color: var(--secondary-bg);
+                  box-shadow: var(--shadow-inset-light);
+                  color: var(--primary-color);
+              }
+
+              /* --- Iframe Navigation (Glassmorphism) --- */
+              #iframe-container { display: none; height: 100vh; }
+              #iframe-nav {
+                  position: fixed;
+                  top: 0;
+                  width: 100%;
+                  padding: 12px 20px;
+                  display: flex;
+                  justify-content: flex-start;
+                  gap: 15px;
+
+                  /* Glassmorphism for Nav */
+                  backdrop-filter: blur(8px);
+                  -webkit-backdrop-filter: blur(8px);
+                  background-color: var(--glass-color);
+                  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
+                  z-index: 100;
+                  box-sizing: border-box;
+              }
+              #iframe-nav button {
+                  padding: 10px 18px;
+                  margin: 0;
+                  border-radius: 8px;
+                  font-size: 0.95em;
+                  box-shadow: none;
+                  background-color: var(--primary-color);
+                  color: white;
+                  transition: background-color 0.2s, transform 0.1s;
+              }
+              #iframe-nav button:hover {
+                  background-color: var(--primary-dark);
+                  transform: none;
+              }
+              #my-iframe {
+                  width: 100%;
+                  height: 100%;
+                  border: none;
+                  padding-top: 60px;
+                  box-sizing: border-box;
+                  background-color: var(--bg-color);
+              }
+
+              /* --- Top Controls (Glassmorphism & Compact) --- */
+              .top-controls {
+                  position: fixed;
+                  top: 15px;
+                  right: 20px;
+                  z-index: 102; /* Higher z-index than tab bar */
+                  display: flex;
+                  align-items: center;
+                  gap: 12px;
+              }
+
+              /* Apply Glassmorphism to ALL controls */
+              .top-controls > * {
+                  height: 44px;
+                  font-size: 0.95em;
+                  border-radius: var(--border-radius);
+                  color: var(--text-color);
+                  border: 1px solid rgba(255, 255, 255, 0.3);
+                  cursor: pointer;
+                  transition: all 0.2s ease-in-out;
+                  padding: 0 10px;
+                  box-sizing: border-box;
+
+                  /* Glassmorphism Effect */
+                  backdrop-filter: blur(10px);
+                  -webkit-backdrop-filter: blur(10px);
+                  background-color: var(--glass-color);
+                  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+              }
+
+              /* Dark mode border fix */
+              [data-theme="dark"] .top-controls > * {
+                  border: 1px solid rgba(0, 0, 0, 0.3);
+              }
+
+              /* --- Individual Control Overrides --- */
+              /* Blur Toggle Button (High Contrast - overrides glass effect background) */
+              #blur-toggle {
+                  min-width: 100px;
+                  font-weight: 700;
+                  color: white;
+                  background-color: #d93025;
+                  box-shadow: 0 4px 10px rgba(217, 48, 37, 0.4);
+                  border: none;
+              }
+              #blur-toggle:hover {
+                   box-shadow: 0 6px 15px rgba(217, 48, 37, 0.6);
+                   transform: translateY(-1px);
+              }
+              /* Styling based on the JS data attribute */
+              #blur-toggle[data-blur-enabled="false"] {
+                  background-color: #4CAF50;
+                  box-shadow: 0 4px 10px rgba(76, 175, 80, 0.4);
+              }
+
+              /* Theme Toggle (Round Button) */
+              #theme-toggle {
+                  height: 44px;
+                  width: 44px;
+                  padding: 0;
+                  border-radius: 50%;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+              }
+              #theme-toggle .fas {
+                  color: var(--primary-color);
+                  font-size: 1.2em;
+              }
+              #theme-toggle:hover {
+                  transform: scale(0.95);
+                  background-color: var(--glass-color);
+              }
+
+              /* --- NEW: Settings Tab Styles --- */
+              .settings-container {
+                  display: flex;
+                  flex-direction: column;
+                  gap: 25px;
+                  align-items: center;
+                  margin-top: 20px;
+              }
+              .settings-item {
+                  display: flex;
+                  align-items: center;
+                  gap: 15px;
+                  font-size: 1.1em;
+              }
+              .settings-item label {
+                  font-weight: 500;
+              }
+              .settings-item select {
+                  padding: 10px 15px;
+                  border-radius: var(--border-radius);
+                  border: 1px solid var(--line-color);
+                  background-color: var(--secondary-bg);
+                  color: var(--text-color);
+                  box-shadow: var(--shadow-inset-light);
+                  font-size: 1em;
+                  min-width: 200px;
+              }
+
+
+              /* --- NEW: Invisible Overlay Styles --- */
+              #offscreen-overlay {
+                  position: fixed;
+                  top: 0;
+                  left: 0;
+                  width: 100%;
+                  height: 100%;
+                  background-color: white; /* Completely white screen when off-focus and blur is OFF */
+                  z-index: 9999;
+                  display: none;
+                  justify-content: center;
+                  align-items: center;
+                  /* Text removed to keep it secret */
+                  cursor: none;
+              }
+              /* --- Body content container (used for hiding/showing) --- */
+              #content-wrapper {
+                  transition: opacity 0.3s;
+              }
+      #quote-display {
+          font-size: 1.2em;
+          font-weight: 300;
+          font-style: italic;
+          margin-top: 20px;
+          opacity: 0.7;
+          transition: opacity 0.5s ease-in-out;
+          min-height: 30px; /* Prevents page jump when quote length changes */
+          max-width: 80%;
+      }
+      /* --- New Floating Pod Style for Bottom Bar --- */
+      #bottom-bar {
+          position: fixed;
+          /* Move it up slightly from the absolute bottom */
+          bottom: 20px;
+          left: 50%; /* Center horizontally */
+          transform: translateX(-50%); /* Center it precisely */
+
+          /* Make the bar fit its content, not the full width */
+          width: auto;
+          min-width: 250px; /* Ensure it's wide enough for content */
+
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 10px 25px; /* Increased padding for the pod look */
+          z-index: 99;
+
+          /* Pod Appearance */
+          border-radius: 50px; /* Highly rounded corners for pod/pill shape */
+          backdrop-filter: blur(12px); /* Stronger blur for glass effect */
+          -webkit-backdrop-filter: blur(12px);
+          background-color: var(--glass-color);
+          /* Floating Shadow (using your light mode neumorphic shadow) */
+          box-shadow: var(--shadow-light-bottom);
+          border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle white border */
+          transition: all 0.3s ease-in-out;
+      }
+      /* Style for the Settings Button in the footer */
+      #footer-settings-btn {
+          /* Base styles */
+          color: var(--text-color);
+          background-color: var(--secondary-bg);
+          border: none;
+          cursor: pointer;
+          transition: all 0.25s ease-in-out;
+          box-shadow: var(--shadow-light-bottom), var(--shadow-light-top);
+
+          /* ⭐ ENSURE PERFECT CIRCLE SHAPE ⭐ */
+          width: 45px;
+          height: 45px;
+          padding: 0; /* Important: Remove any default button padding */
+          border-radius: 50%; /* Makes the shape round */
+
+          /* Center the emoji content */
+          font-size: 1.5em;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+      }
+
+      #footer-settings-btn:hover {
+          transform: scale(0.95);
+          box-shadow: var(--shadow-inset-light);
+          color: var(--primary-color);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="loading-screen">
+      <div class="loader-container">
+        <div class="loader-circle"></div>
+        <p>Loading Games Hub...</p>
+      </div>
+    </div>
+    <div id="offscreen-overlay"></div>
+
+    <div id="content-wrapper">
+      <div id="bottom-bar">
+        <div id="footer-time"></div>
+        <button
+          id="footer-settings-btn"
+          onclick="  backToMain(); setTimeout(() => {showTab('settings', this); },1);"
+        >
+          ⚙️
+        </button>
+      </div>
+
+      <div id="disclaimer-popup">
+        <div class="popup-content">
+          <h3>Disclaimer</h3>
+          <p>
+            You cannot blame the creator if you get caught using this site. Use
+            at your own risk.
+          </p>
+          <div class="popup-agree">
+            <input type="checkbox" id="agree-checkbox" />
+            <label for="agree-checkbox">I agree</label>
+          </div>
+          <button id="agree-button" disabled>Enter Site</button>
+        </div>
+      </div>
+      <div id="tab-bar">
+        <button
+          id="tab-home"
+          class="active-tab"
+          onclick="showTab('home', this)"
+        >
+          🏠 Home
+        </button>
+        <button id="tab-embed" onclick="showTab('embed', this)">
+          🔗 Embed Links
+        </button>
+        <button id="tab-links" onclick="showTab('links', this)">
+          🌐 External Links
+        </button>
+        <button id="tab-links" onclick="showTab('settings', this)">
+          ⚙ Settings
+        </button>
+      </div>
+
+      <div id="main-menu" data-pattern="lines">
+        <div id="home-content" class="menu-tab-content active">
+          <h2>Welcome to Starlight Games!</h2>
+          <div id="quote-display"></div>
+          <div class="menu-buttons" style="margin-top: 30px;">
+            <button
+              onclick="alert('This is a work in progress, not out yet!');"
+            >
+              🚀 Surf Web Freely
+            </button>
+          </div>
+        </div>
+
+        <div id="embed-content" class="menu-tab-content">
+          <div class="menu-section-title">🔗 Embed Links</div>
+          <div class="menu-buttons">
+            <button
+              onclick="showIframe('https://amhooman.github.io/website/games/index.html')"
+            >
+              🕹️ Load Slash Flash Hub
+            </button>
+            <button
+              onclick="showIframe('https://unblockedgames1024.gitlab.io/')"
+            >
+              🕹️ Load Gitlab Hub (upd)
+            </button>
+          </div>
+        </div>
+
+        <div id="links-content" class="menu-tab-content">
+          <div class="menu-section-title">🌐 Locked!</div>
+          <div class="menu-buttons">
+            <button
+              onclick="alert('This link is locked, please contact owner to use this!')"
+            >
+              Locked!
+            </button>
+          </div>
+        </div>
+
+        <div id="settings-content" class="menu-tab-content">
+          <div class="menu-section-title">⚙️ Page Settings</div>
+
+          <div class="settings-container">
+            <div class="settings-item">
+              <label for="cloak-dropdown">Cloak Type:</label>
+              <select
+                id="cloak-dropdown"
+                onchange="applyCloak()"
+                title="Disguise Tab"
+              >
+                <option value="Home">🎓 Select Preset...</option>
+                <option value="Clever | Portal">Clever | Portal</option>
+                <option value="Home">Google Classroom</option>
+                <option value="Khan Academy">Khan Academy</option>
+                <option value="Google Docs">Google Docs</option>
+                <option value="Outlook Mail">Outlook Mail</option>
+                <option value="Calculator">Calculator</option>
+                <option value="Activate Learning Digital Platform - Home">
+                  Activate Learning
+                </option>
+
+                <option
+                  value="Gallopade: Educational Products, Social Studies Curriculum, Reading, Common Core"
+                >
+                  Gallopade
+                </option>
+                <option value="Home | iCivics">iCivics</option>
+                <option value="custom">Custom Cloak...</option>
+              </select>
+            </div>
+            <div class="settings-item">
+              <label for="pattern-select">Background Pattern:</label>
+              <select id="pattern-select" onchange="applyPattern()">
+                <option value="lines">Lines (Default)</option>
+                <option value="stripes">Stripes</option>
+                <option value="dots">Dots</option>
+                <option value="stars">Stars</option>
+                <option value="none">None</option>
+              </select>
+            </div>
+
+            <div id="custom-cloak-options">
+              <div
+                class="menu-section-title"
+                style="margin-top: 30px; border-bottom: 1px solid var(--line-color); border-top: none; font-size: 1.2em;"
+              >
+                Custom Cloak
+              </div>
+
+              <div class="settings-item">
+                <label for="custom-title-input">Custom Title:</label>
+                <input
+                  type="text"
+                  id="custom-title-input"
+                  placeholder="Enter new tab title"
+                />
+              </div>
+              <div class="settings-item">
+                <label for="custom-favicon-input">Custom Favicon:</label>
+                <input
+                  type="text"
+                  id="custom-favicon-input"
+                  placeholder="Enter favicon URL (e.g., https://google.com/favicon.ico)"
+                />
+              </div>
+
+              <div class="menu-buttons" style="margin-top: 25px;">
+                <button onclick="runCustomCloak()">Apply Custom Cloak</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="iframe-container">
+        <nav id="iframe-nav">
+          <button onclick="goToHomepage()">🏠 Homepage</button>
+          <button onclick="openIframeInNewWindow()">
+            ↗️ New Window (Cloaked)
+          </button>
+          <button onclick="toggleFullscreen()">📺 Fullscreen</button>
+          <button
+            id="footer-toggle"
+            onclick="toggleFooter()"
+            data-footer-enabled="true"
+          >
+            Hide Footer
+          </button>
+          <button onclick="backToMain()">⬅️ Back to Main Menu</button>
+        </nav>
+        <iframe id="my-iframe" allowfullscreen></iframe>
+      </div>
+
+      <div class="top-controls">
+        <button id="theme-toggle" aria-label="Toggle Theme"></button>
+        <button
+          id="blur-toggle"
+          onclick="toggleBlur()"
+          title="Toggle Blur Redirect"
+          data-blur-enabled="true"
+        >
+          Blur: ON
+        </button>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+                  // Check if this window was opened by another window.
+                  // If window.opener is null, this is the *original* tab.
+                  if (!window.opener) {
+
+                      // Try to open the new 'about:blank' tab
+                      const newWindow = window.open('about:blank', '_blank');
+
+                      if (newWindow) {
+                          // Success! Popup was not blocked.
+
+                          // 1. Get the current page's entire HTML
+                          const currentHtml = document.documentElement.outerHTML;
+
+                          // 2. Write that HTML into the new 'about:blank' tab
+                          newWindow.document.write(currentHtml);
+                          newWindow.document.close();
+
+                          // 3. Redirect the *original* tab (this one) to Google
+                          window.location.replace('https://www.google.com');
+
+                      } else {
+                          // Failure! Popup was blocked.
+                          alert("Please enable popups!");
+                          // We don't redirect, so the user can still use the site
+                          // in this original tab.
+                      }
+                  }
+                  // If window.opener *exists*, this is the *newly opened* tab,
+                  // so we do nothing and let the page load normally.
+              });
+      // --- QUOTE ROTATOR SCRIPT (RANDOMIZED) ---
+      const quoteDisplay = document.getElementById('quote-display');
+      const quotes = [
+        // --- Meta / Fourth Wall Breaking ---
+        "This is not a bug, it's an undocumented feature.",
+        "Your save file is safe. We think.",
+        "Achievement Unlocked: Read a loading screen tip.",
+        "If you can read this, you're not playing yet. Go play.",
+        "Are you still there? The game misses you.",
+        "Shhh... I'm supposed to be rendering a beautiful landscape right now.",
+        "// TODO: Write a funny quote here.",
+        "This loading screen is brought to you by the art team. They're very proud.",
+        "Don't tell the other NPCs, but you're my favorite player.",
+        "This text was randomly generated. Or was it?",
+        "Polishing the pixels to a mirror shine.",
+        "Don't tap on the glass, you'll scare the code.",
+        "If you see the developer, tell them I need a raise.",
+        "This loading screen is hiding another loading screen.",
+        "Reticulating splines... I have no idea what that means either.",
+        "Hold on, we're converting the fun into a playable format.",
+        "Calibrating the difficulty to 'Slightly Unfair'.",
+
+        // --- Classic Gamer Problems & Habits ---
+        "It was definitely lag.",
+        "Just one more level... he said, five hours ago.",
+        "I paused my game to be here. You're welcome.",
+        "I have 99 potions, but I'll never use them 'just in case'.",
+        "My inventory is 90% vendor trash and 10% regret.",
+        "Spent two hours creating a character I'll only ever see the back of.",
+        "That moment when you forget if you saved.",
+        "Press 'F' to pay respects to my social life.",
+        "Searching every pot for a single gold coin. It's a living.",
+        "Remember to stretch. And blink. Blinking is important.",
+        "Quicksaving before talking to a friendly NPC. You never know.",
+        "That feeling when the boss has a second health bar. And then a third.",
+        "Yes, I did loot that peasant's house for a single apple. Don't judge me.",
+        "My other character is a level 99 something-or-other.",
+        "Blaming my teammates is a valid strategy.",
+
+        // --- Sarcastic / Fake "Pro-Tips" ---
+        "Pro-Tip: Standing in the fire makes you warmer.",
+        "Remember, the real treasure is the monsters we slayed along the way.",
+        "That big red barrel is probably full of health potions.",
+        "To defeat the boss, hit it until it dies.",
+        "Running with scissors is a valid tactical choice.",
+        "Licking the screen will not reveal secret items. We tried.",
+        "Fun fact: The 'S' in 'Loot Box' stands for 'Skill'.",
+        "That 'shortcut' is definitely not a trap.",
+        "If an NPC repeats the same dialogue, say it back to them louder to proceed.",
+        "That suspiciously empty, large room is definitely a safe place for a break.",
+        "Friendly fire isn't.",
+        "The villain's long monologue is the perfect time to check your phone.",
+        "Alerting the guards is a great way to meet new people.",
+
+        // --- NPC / World Logic Jokes ---
+        "I used to be a hero like you, then I took a loading screen to the knee.",
+        "Why do all these 'ancient, sealed tombs' have perfectly working torches?",
+        "That guard will forget you murdered his friend in about 30 seconds. Just crouch.",
+        "Welcome, hero! Please solve our world-ending crisis by collecting 10 wolf pelts.",
+        "I can carry 15 swords, but a single quest item is too heavy. It's complicated.",
+        "Don't mind me, just standing in this corner waiting for you to trigger my quest.",
+        "Sure, the world is ending, but have you seen my lost cat?",
+        "I'm programmed to find your lack of skill disturbing.",
+        "Is that a legendary sword, or are you just happy to see me?",
+        "That 'impenetrable' fortress has a very large, unguarded sewer pipe.",
+
+        // --- Just Plain Silly / Puns ---
+        "Never trust an atom. They make up everything.",
+        "404: Witty quote not found.",
+        "Powered by caffeine and questionable life choices.",
+        "Warning: May contain traces of fun.",
+        "If at first you don't succeed, blame the controller.",
+        "On a scale of 1 to 10, what is your favorite color of the alphabet?",
+        "This game is 10% skill, 20% luck, and 70% wondering where you left your keys.",
+        "What do you call a magic owl? Hoodini.",
+        "Why don't skeletons fight each other? They don't have the guts.",
+        "Compiling shaders... and my thoughts.",
+        "I'm on a seafood diet. I see food, and I click it.",
+        "Buffering... please wait while I remember the joke.",
+        "Error 418: I'm a teapot.",
+        "This is my favorite quote on the citadel."
+      ];
+      // Assuming 'quotes' is an array of strings defined elsewhere
+      // e.g., const quotes = ["Quote 1", "Quote 2", "Quote 3", "Quote 4"];
+
+      // Assuming 'quoteDisplay' is a reference to your HTML element
+      // e.g., const quoteDisplay = document.getElementById('quote-display');
+
+      // This new array will store the indices of quotes we've already shown
+      let usedQuoteIndices = [];
+
+      function updateQuote() {
+          if (quoteDisplay) {
+              // Fade out the current quote
+              quoteDisplay.style.opacity = 0;
+
+              // After the fade-out, change the text and fade in
+              setTimeout(() => {
+                  // --- MODIFICATION START ---
+
+                  // Check if we've shown all the quotes. If so, reset the list.
+                  if (usedQuoteIndices.length === quotes.length) {
+                      usedQuoteIndices = [];
+                      console.log("All quotes shown. Resetting list."); // Optional: for debugging
+                  }
+
+                  let newQuoteIndex;
+                  // This loop ensures the new quote has not been shown before in this cycle
+                  do {
+                      newQuoteIndex = Math.floor(Math.random() * quotes.length);
+                  } while (usedQuoteIndices.includes(newQuoteIndex));
+
+                  // Add the new index to our list of used quotes
+                  usedQuoteIndices.push(newQuoteIndex);
+
+                  // --- MODIFICATION END ---
+
+                  // Update the text content with the new random quote
+                  quoteDisplay.textContent = `"${quotes[newQuoteIndex]}"`;
+
+                  // Fade the new quote in
+                  quoteDisplay.style.opacity = 0.7;
+              }, 500); // This delay should match the CSS transition time
+          }
+      }
+      // Show the first quote immediately and then update it every 5 seconds
+      updateQuote();
+      setInterval(updateQuote, 5000); // 5000 milliseconds = 5 seconds
+
+          // --- BASIC ELEMENTS ---
+          const root = document.documentElement;
+          const iframeEl = document.getElementById('my-iframe');
+          const mainMenu = document.getElementById('main-menu');
+          const iframeContainer = document.getElementById('iframe-container');
+          const blurToggleBtn = document.getElementById('blur-toggle');
+          const themeToggleBtn = document.getElementById('theme-toggle');
+          const overlay = document.getElementById('offscreen-overlay');
+          const contentWrapper = document.getElementById('content-wrapper');
+          let currentHomepage = '';
+
+          // --- CLOAK DATA ---
+          const FAVICONS = {
+      "Home | iCivics": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y+mAAAAV1BMVEVHcEz/ZAD/ZwD/WwD/WwD/YAD/ZAD/WwD/WwD/WwD/WwD/WwD/WwD/WwD/ZgD/WwD/WwD/WwD/aAD/gAD/kQD/kAD/kQD/kQD/kQD/ZQD/kQD/jQD/bwAvM226AAAAHHRSTlMACCEwRhgPhrjT4e6tdjyd+/9a///yfrli/53evbsBzAAAAOVJREFUeAGtkgUSwlAMRL+71u3+18QSHDrWheqbbpQcIcq4EIJL+o2U0MY672yI6ZPx7EoFFavVG0sWCeDAXpmr7zLy6Wnrp7JCpjK6OZMNhvYNQgGmPidKVMq+XhXAmGpgmKPMpV4LAsgM5HDPkMX4bAWkU+KzVZ91FMjgQwDbrv8FwfYCh5+2zFxhNz4SGqbEFCVYSqlzd/kUS1m6fjU5ymcT2gtdbk1Y+q7bsAnYvvlCu3VcxvVybbF9mBJSUAuNfyt1A9zOMLLPYc/bts1vw95fExC9LZi7zoP/Xs0kEpfkAJ0B2VoUsYiyizsAAAAASUVORK5CYII=",
+              "Clever | Portal": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQi3ptQJ9ibYtsUiQ1yNX5abVZvtmG9fwqjNpUqzO6N8qbrYgM:https://resources.finalsite.net/images/f_auto,q_auto/v1689877141/mooreschoolscom/emadd6nvplrnh1vsswjf/Clever-Logo.jpg&s",
+              "Home": "https://ssl.gstatic.com/classroom/favicon.ico",
+              "Khan Academy": "https://www.khanacademy.org/favicon.ico",
+              "Google Docs": "https://ssl.gstatic.com/docs/doclist/images/mediatype/icon_1_document_x16.png",
+              "Outlook Mail": "https://outlook.live.com/favicon.ico",
+              "Calculator": "https://www.calculator.net/favicon.ico",
+              "Google": "https://google.com/favicon.ico",
+              "Activate Learning Digital Platform - Home": "https://activatelearning.com/wp-content/uploads/2023/05/favicon.png",
+              "Gallopade: Educational Products, Social Studies Curriculum, Reading, Common Core": "https://gallopade.com/favicon.ico"
+
+          };
+
+          // --- UTILITY FUNCTIONS ---
+          function toggleContentVisibility(show) {
+              // When showing, set wrapper opacity to 1 and hide the overlay.
+              if (show) {
+                  contentWrapper.style.opacity = '1';
+                  contentWrapper.style.pointerEvents = 'auto';
+                  overlay.style.display = 'none';
+              }
+              // When hiding, set wrapper opacity to 0 and show the overlay.
+              else {
+                  contentWrapper.style.opacity = '0';
+                  contentWrapper.style.pointerEvents = 'none';
+                  overlay.style.display = 'flex';
+              }
+          }
+
+          // --- NEW TAB SWITCHING LOGIC ---
+          function showTab(tabId, clickedButton) {
+              // 1. Hide all tab content sections
+              document.querySelectorAll('.menu-tab-content').forEach(content => {
+                  content.classList.remove('active');
+              });
+
+              // 2. Deactivate all tab buttons
+              document.querySelectorAll('#tab-bar button').forEach(button => {
+                  button.classList.remove('active-tab');
+              });
+
+              // 3. Show the target tab content and activate the button
+              document.getElementById(tabId + '-content').classList.add('active');
+              clickedButton.classList.add('active-tab');
+          }
+      // --- JAVASCRIPT UPDATES ---
+
+      function updateTime() {
+          const now = new Date();
+          const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+          const dateString = now.toLocaleDateString([], { weekday: 'short', month: 'short', day: 'numeric' });
+
+          // ⭐ TARGET NEW FOOTER ELEMENT
+          const timeElement = document.getElementById('footer-time');
+          if (timeElement) {
+              timeElement.textContent = `${dateString} | ${timeString}`;
+          }
+      }
+      updateTime();
+      setInterval(updateTime, 1000);
+      const tabBar = document.getElementById('tab-bar');
+      const bottomBar = document.getElementById('bottom-bar');
+
+          function backToMain() {
+              iframeContainer.style.display = 'none'; mainMenu.style.display = 'flex'; iframeEl.src = 'about:blank';
+              // When going back to main, ensure the Home tab is visible
+              showTab('home', document.getElementById('tab-home'));
+              tabBar.style.display = 'flex';
+               bottomBar.style.display = 'flex';
+
+          }
+          function goToHomepage() { iframeEl.src = currentHomepage; }
+          function toggleFullscreen() {
+              if (!document.fullscreenElement) iframeEl.requestFullscreen().catch(err => console.error(err)); else document.exitFullscreen();
+          }
+
+          // UPDATED FUNCTION: Open Iframe Content in New Window (with Cloak)
+          function openIframeInNewWindow() {
+              if (!iframeEl.src || iframeEl.src === 'about:blank') {
+                  alert('Please load a game first! Also, HOW DID YOU GET THIS MESSAGE?!?!?!?!?');
+                  return;
+              }
+
+              const title = document.title;
+              const faviconURL = document.querySelector('link[rel="icon"], link[rel="shortcut icon"]')?.href || '';
+
+              // Template for the new window content (using a nested iframe to display the game)
+              const htmlContent = `
+                  <!DOCTYPE html>
+                  <html>
+                  <head>
+                      <meta charset="UTF-8">
+                      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                      <title>${title}</title>
+                      ${faviconURL ? `<link rel="icon" href="${faviconURL}">` : ''}
+                      <style>
+                          body { margin: 0; padding: 0; overflow: hidden; background-color: #fff; }
+                          iframe { width: 100vw; height: 100vh; border: none; margin: 0; padding: 0; }
+                      </style>
+                  </head>
+                  <body>
+                      <iframe src="${iframeEl.src}"></iframe>
+                  </body>
+                  </html>
+              `;
+
+              const newWindow = window.open('about:blank', '_blank');
+              if (newWindow) {
+                  newWindow.document.write(htmlContent);
+                  newWindow.document.close();
+              } else {
+                  alert("Pop-up blocked! Please allow pop-ups for this site.");
+              }
+          }
+
+
+          // --- THEME & APPEARANCE ---
+          themeToggleBtn.innerHTML =  '<i class="fas fa-sun"></i>';
+          function applyTheme(theme) {
+              root.setAttribute('data-theme', theme);
+              themeToggleBtn.innerHTML = theme === 'dark' ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
+              localStorage.setItem('theme', theme);
+          }
+          themeToggleBtn.addEventListener('click', () => {
+              const newTheme = (root.getAttribute('data-theme') || 'light') === 'light' ? 'dark' : 'light';
+              applyTheme(newTheme);
+          });
+
+          // NEW: Function to apply background pattern
+          function applyPattern() {
+              const patternSelect = document.getElementById('pattern-select');
+              const selectedPattern = patternSelect.value;
+              mainMenu.setAttribute('data-pattern', selectedPattern);
+              localStorage.setItem('selectedPattern', selectedPattern);
+          }
+
+          // Check for saved theme and pattern on load
+          document.addEventListener('DOMContentLoaded', () => {
+              const savedTheme = localStorage.getItem('theme') || 'light';
+              applyTheme(savedTheme);
+
+              const savedPattern = localStorage.getItem('selectedPattern') || 'lines';
+              document.getElementById('pattern-select').value = savedPattern;
+              applyPattern(); // Apply the saved or default pattern
+          });
+
+      // Store references to the new elements
+      const footerToggleButton = document.getElementById('footer-toggle');
+
+      function toggleFooter() {
+          const isEnabled = footerToggleButton.getAttribute('data-footer-enabled') === 'true';
+
+          if (isEnabled) {
+              // Disable: Hide the footer
+              bottomBar.style.display = 'none';
+              footerToggleButton.textContent = 'Show Footer';
+              footerToggleButton.setAttribute('data-footer-enabled', 'false');
+          } else {
+              // Enable: Show the footer
+              bottomBar.style.display = 'flex'; // Footer is a flex container
+              footerToggleButton.textContent = 'Hide Footer';
+              footerToggleButton.setAttribute('data-footer-enabled', 'true');
+          }
+      }
+          function showIframe(url) {
+              currentHomepage = url; mainMenu.style.display = 'none'; iframeContainer.style.display = 'block'; iframeEl.src = url;
+              tabBar.style.display = 'none';
+
+
+            toggleFooter();
+             toggleFooter();
+          }
+    
+    </script>
+    
+    <script>
+      let blurEnabled = true;
+
+      function updateBlurButton() {
+          const btn = document.getElementById('blur-toggle');
+          if (!btn) return;
+          btn.textContent = blurEnabled ? 'Blur: ON' : 'Blur: OFF';
+          btn.setAttribute('data-blur-enabled', blurEnabled);
+          btn.style.backgroundColor = '';
+      }
+
+      function toggleBlur() {
+          blurEnabled = !blurEnabled;
+          updateBlurButton();
+      }
+
+      document.addEventListener('DOMContentLoaded', updateBlurButton);
+
+      // --- Blur Redirect/Overlay Logic ---
+      const REDIRECT_DELAY = 65;
+      let timeoutHandle = null;
+
+      function redirect() {
+          clearTimeout(timeoutHandle);
+          // Attempt fast tab closure/redirect
+          window.location.href = "https://www.google.com";
+      }
+
+      document.addEventListener('visibilitychange', () => {
+          if (document.visibilityState === 'hidden') {
+              // Tab lost focus
+              if (blurEnabled) {
+                  // Blur ON: Initiate redirect
+                  timeoutHandle = setTimeout(redirect, REDIRECT_DELAY);
+              } else {
+                  // Blur OFF: Show white overlay by hiding content
+                  toggleContentVisibility(false);
+              }
+          } else {
+              // Tab gained focus, clear any pending redirect
+              if (timeoutHandle) {
+                  clearTimeout(timeoutHandle);
+                  timeoutHandle = null;
+              }
+              // If content was hidden by the overlay, we now wait for 'E' press
+          }
+      });
+
+      window.addEventListener('focus', function () {
+          if (timeoutHandle) {
+              clearTimeout(timeoutHandle);
+              timeoutHandle = null;
+          }
+      });
+
+      // Logic: 'E' keypress to dismiss overlay and show content
+      document.addEventListener('keydown', (event) => {
+          // Only proceed if the overlay is visible
+          if (overlay.style.display === 'flex') {
+              // Check for 'E' keypress (case-insensitive)
+              if (event.key.toUpperCase() === 'E') {
+                  toggleContentVisibility(true);
+                  event.preventDefault(); // Stop 'e' from typing in any focused input
+              }
+          }
+      });
+
+      // MODIFIED function for the dropdown
+      function applyCloak() {
+          const dropdown = document.getElementById('cloak-dropdown');
+          const selected = dropdown.value;
+          const customOptionsDiv = document.getElementById('custom-cloak-options');
+
+          if (selected === "custom") {
+              // Show the custom input fields
+              customOptionsDiv.classList.add('visible');
+
+          } else if (selected) {
+              // A preset was chosen
+              // Hide custom options
+              customOptionsDiv.classList.remove('visible');
+
+              // Apply the preset cloak
+              document.title = selected;
+              const faviconURL = FAVICONS[selected];
+              let faviconEl = document.getElementById("dynamic-favicon");
+
+              if (!faviconEl) {
+                  faviconEl = document.createElement("link");
+                  faviconEl.rel = "icon";
+                  faviconEl.id = "dynamic-favicon";
+                  document.head.appendChild(faviconEl);
+              }
+              faviconEl.href = faviconURL;
+
+              // Clear custom inputs so the user knows the preset is active
+              document.getElementById('custom-title-input').value = "";
+              document.getElementById('custom-favicon-input').value = "";
+
+          } else {
+              // The "Select Preset..." (empty value) was chosen
+              // Hide custom options
+              customOptionsDiv.classList.remove('visible');
+          }
+      }
+      // Function for custom inputs (no changes needed)
+      function applyCustomCloak(customTitle, faviconURL) {
+          if (customTitle) {
+              document.title = customTitle;
+          }
+          if (faviconURL) {
+              let faviconEl = document.getElementById("dynamic-favicon");
+              if (!faviconEl) {
+                  faviconEl = document.createElement("link");
+                  faviconEl.rel = "icon";
+                  faviconEl.id = "dynamic-favicon";
+                  document.head.appendChild(faviconEl);
+              }
+              faviconEl.href = faviconURL;
+          }
+      }
+
+      // MODIFIED Helper function for the "Apply Custom Cloak" button
+      function runCustomCloak() {
+          const title = document.getElementById('custom-title-input').value;
+          const url = document.getElementById('custom-favicon-input').value;
+
+          if (!title && !url) {
+              alert("Please enter a title or favicon URL!");
+              return;
+          }
+
+          applyCustomCloak(title, url);
+
+          // Keep the preset dropdown on "Custom"
+          document.getElementById('cloak-dropdown').value = "custom";
+      }
+      // --- Loading Screen Logic ---
+      function hideLoadingScreen() {
+          const loadingScreen = document.getElementById('loading-screen');
+          if (loadingScreen) {
+              loadingScreen.classList.add('hidden');
+          }
+      }
+
+      // --- NEW: DISCLAIMER POPUP SCRIPT ---
+
+      // 1. Get references to the new popup elements
+      const disclaimerPopup = document.getElementById('disclaimer-popup');
+      const agreeCheckbox = document.getElementById('agree-checkbox');
+      const agreeButton = document.getElementById('agree-button');
+
+      /**
+       * Shows the disclaimer popup.
+       */
+      function showDisclaimer() {
+          if (disclaimerPopup) {
+              disclaimerPopup.classList.add('visible');
+          }
+      }
+
+      /**
+       * Hides the disclaimer popup.
+       */
+      function hideDisclaimer() {
+          if (disclaimerPopup) {
+              disclaimerPopup.classList.remove('visible');
+          }
+      }
+
+      // 2. Add listeners for the popup logic
+      if (disclaimerPopup && agreeCheckbox && agreeButton) {
+
+          // Add listener to the checkbox
+          agreeCheckbox.addEventListener('change', () => {
+              // Enable/disable the button based on the checkbox state
+              agreeButton.disabled = !agreeCheckbox.checked;
+          });
+
+          // Add listener to the "Enter Site" button
+          agreeButton.addEventListener('click', () => {
+              // Hide the popup when clicked (if enabled)
+              hideDisclaimer();
+          });
+
+      } else {
+          // This will warn you if you forgot the HTML
+          console.warn("Disclaimer popup HTML elements not found. The popup will not work.");
+      }
+
+
+      // --- REPLACE YOUR OLD LOADING SCREEN LOGIC WITH THIS ---
+
+      // --- Loading Screen Logic ---
+      function hideLoadingScreen() {
+          const loadingScreen = document.getElementById('loading-screen');
+          if (loadingScreen) {
+              loadingScreen.classList.add('hidden');
+          }
+
+          // --- NEW ---
+          // Show the disclaimer *after* the loading screen is hidden
+          // We wait a tiny bit for the loading screen to fade out
+          setTimeout(showDisclaimer, 500);
+      }
+
+      // Wait for the entire page to load (including images/resources)
+      window.addEventListener('load', () => {
+          // Hide the loading screen after a small delay
+          setTimeout(hideLoadingScreen, 500);
+          alert("The blur option works by if it is off, if you switch off tab it will become blank, click 'E' to reveal page, if its on, if you get off page it redirects it to google");
+
+      });
+    </script>
+  </body>
+</html>
