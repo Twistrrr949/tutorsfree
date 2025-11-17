@@ -176,34 +176,38 @@
             document.msExitFullscreen();
         }
     }
+}
+     document.addEventListener('DOMContentLoaded', function() {
+                  // Check if this window was opened by another window.
+                  // If window.opener is null, this is the *original* tab.
+                  if (!window.opener) {
 
-document.addEventListener('DOMContentLoaded', function () {
-  const CLOAKED_WINDOW_NAME = 'tutorsfree_cloak_window'; // keep this exact across pages
+                      // Try to open the new 'about:blank' tab
+                      const newWindow = window.open('about:blank', '_blank');
 
-  // if this was opened by another window, do nothing
-  if (window.opener) return;
+                      if (newWindow) {
+                          // Success! Popup was not blocked.
 
-  // Try to get/reuse the named window without forcing navigation to about:blank
-  const target = window.open('', CLOAKED_WINDOW_NAME);
+                          // 1. Get the current page's entire HTML
+                          const currentHtml = document.documentElement.outerHTML;
 
-  if (!target) {
-    alert('Please enable popups!');
-    return;
-  }
+                          // 2. Write that HTML into the new 'about:blank' tab
+                          newWindow.document.write(currentHtml);
+                          newWindow.document.close();
 
-  try {
-    // Attempt to write into the target (works if it's same-origin or created by this app)
-    target.document.open();
-    target.document.write(document.documentElement.outerHTML);
-    target.document.close();
+                          // 3. Redirect the *original* tab (this one) to Google
+                          window.location.replace('https://www.google.com');
 
-    // Redirect the original tab
-    window.location.replace('https://www.google.com');
-  } catch (err) {
-    console.warn('Cannot reuse target (maybe cross-origin or navigated away):', err);
-    alert('A cloaked tab exists but cannot be reused. Close it or use a dedicated cloaked page.');
-  }
-});
+                      } else {
+                          // Failure! Popup was blocked.
+                          alert("Please enable popups!");
+                          // We don't redirect, so the user can still use the site
+                          // in this original tab.
+                      }
+                  }
+                  // If window.opener *exists*, this is the *newly opened* tab,
+                  // so we do nothing and let the page load normally.
+              });
     </script>
 </body>
 </html>
