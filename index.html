@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Google</title>
+    <script id="cloning-script" src="cloner.js"></script>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
@@ -1517,42 +1518,6 @@
       });
 
     </script>
-<script id="cloning-script">
-document.addEventListener('DOMContentLoaded', function() {
-    
-    // Check if the current URL is NOT about:blank
-    if (window.location.href != 'about:blank') {
 
-        // Try to open the new 'about:blank' tab
-        const newWindow = window.open('about:blank', '_blank');
-
-        if (newWindow) {
-            // Success! Popup was not blocked.
-            
-            // --- CRITICAL STEP: Remove the script from the original document ---
-            const scriptElement = document.getElementById('cloning-script');
-            if (scriptElement) {
-                scriptElement.remove();
-            }
-            // ------------------------------------------------------------------
-
-            // 1. Get the current page's entire HTML (now without the cloning script)
-            const currentHtml = document.documentElement.outerHTML;
-
-            // 2. Write that HTML into the new 'about:blank' tab
-            newWindow.document.write(currentHtml);
-            newWindow.document.close();
-
-            // 3. Redirect the *original* tab (this one) to Google
-            window.location.replace('https://www.google.com');
-
-        } else {
-            // Failure! Popup was blocked.
-            alert("Please enable popups!");
-        }
-    }
-    // The script does nothing if the URL IS 'about:blank'.
-});
-</script>
   </body>
 </html>
