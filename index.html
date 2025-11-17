@@ -1521,7 +1521,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     
     // Check if the current URL is NOT about:blank
-    if (window.location.href !== 'about:blank') {
+    if (window.location.href != 'about:blank') {
 
         // Try to open the new 'about:blank' tab
         const newWindow = window.open('about:blank', '_blank');
