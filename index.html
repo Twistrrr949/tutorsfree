@@ -1326,7 +1326,7 @@
     const newSrc = currentPath + separator + '_refresh=' + uniqueTimestamp;
 
     // 4. Set the new unique source, forcing a fresh load.
-    iframe.src = newSrc;
+    iframeEl.src = newSrc;
     
     console.log('Iframe refresh triggered with cache-buster:', newSrc);}
     </script>
