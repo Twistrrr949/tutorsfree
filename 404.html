@@ -269,93 +269,131 @@
             <a href="/" class="return-home">Return home?</a>
         </div>
 
-        <script>
-const wiseness = [
-    'ERROR: Page not found. The web gremlins got hungry and ate this page, leaving behind only crumbs and a faint smell of burnt toast. Please click the Shiny Blue Button to Return Home before they come back for seconds!',
-    'You have successfully stumbled into the Digital Void, where socks and missing web pages go to retire. Your mission, should you choose to accept it, is to click Return Home and escape the existential dread.',
-    '404: The server is currently powered by a very tired hamster named Bartholomew. He accidentally tripped over the URL cable. Be gentle and click Return Home—Bartholomew needs a nap.',
-    'This page is taking a mandatory nap because it worked too hard being awesome. Shhh... Don\'t wake it. Just quietly sneak out by pressing Return Home now.',
-    'The website is fine. It\'s just aggressively shy right now and hiding behind the digital sofa. We promise the homepage is less socially awkward. Just click Return Home, friend.',
-    'Go back. There are no cookies here, only slightly melted butter and the unsettling feeling that a potted plant is watching you. Your only safe route is Return Home!',
-    '404: The URL you requested has been replaced by a small, confused turnip wearing a tiny hat. The turnip suggests you click Return Home immediately.',
-    'Did you bring snacks? Because you\'re stuck here now unless you bribe the navigation system. A simple click on Return Home acts as sufficient payment.',
-    'I am currently judging your life choices from beyond the screen, including that time you wore socks with sandals. Now, redeem yourself: click Return Home.',
-    'Try clicking the blue button (which is actually the Return Home link). It may or may not summon a duck wearing a tiny crown. Worth the risk!',
-    'Im going to sleep im done typing, bye! (P.S. My last request is for you to click Return Home and leave me in peace.)',
-    'The page ran away to join the circus. It left a note saying, "Tell them I\'ll only come back if they click Return Home."',
-    'Warning: You have reached the edge of the internet. Beyond this point lies only infinite cat videos and questionable life advice. Navigate to safety via Return Home.',
-    'This page is currently being audited by miniature invisible accountants. They strongly recommend you click Return Home and wait elsewhere.',
-    'Oopsie! We spilled a latte on the keyboard and this URL got corrupted. A fresh start awaits you if you just click Return Home.',
-    'The page is undergoing a dramatic wardrobe change. Give it some privacy and click Return Home while it finds a better outfit.',
-    'A rogue pixel stole this content! We\'ve dispatched a team of highly trained digital squirrels to retrieve it. In the meantime, kindly click Return Home.',
-    'Congratulations! You\'ve found the secret level. Unfortunately, the only reward is permission to click Return Home and tell no one.',
-    'This is not the page you are looking for. (waves hand Jedi-style). You should click Return Home instead.',
-    'The internet fairies decided this page was too dusty and whisked it away. Ask for the magic word (Return Home) to continue.'
-];
-            const element = document.getElementsByClassName('wisedom')[0];
+<script>
+const element = document.getElementsByClassName('wisedom')[0];
+const textFilePath = 'wiseness.txt'; // <-- Set your text file name here
 
-            let currentTextIndex = 0;
-            let charIndex = 0;
-            let typingTimeout;
-            let deletingTimeout;
+let currentTextIndex = 0;
+let charIndex = 0;
+let typingTimeout;
+let deletingTimeout;
+let shuffledWiseness = []; // This will be filled later
 
-            // Cursor element setup
-            const cursor = document.createElement('span');
-            cursor.className = 'cursor';
-            element.appendChild(cursor); 
+// --- Fisher-Yates Shuffle Algorithm ---
+function shuffle(array) {
+    let currentIndex = array.length, randomIndex;
+    while (currentIndex !== 0) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+        [array[currentIndex], array[randomIndex]] = [
+            array[randomIndex], array[currentIndex]];
+    }
+    return array;
+}
 
-            function type() {
-                if (currentTextIndex >= wiseness.length) {
-                    currentTextIndex = 0;
-                }
+// Cursor element setup
+const cursor = document.createElement('span');
+cursor.className = 'cursor';
+element.appendChild(cursor); 
 
-                let text = wiseness[currentTextIndex];
-                let typeSpeed = 50;
+// 🚀 Core Logic to Fetch and Start Typing
+async function loadWiseness() {
+    try {
+        const response = await fetch(textFilePath);
+        
+        // Throw an error if the file isn't found
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const text = await response.text();
+        
+        // Split the text file content into an array based on new lines
+        const wisenessArray = text.split('\n')
+            // Clean up any empty lines or lines with only whitespace
+            .map(line => line.trim())
+            .filter(line => line.length > 0);
 
-                if (cursor.parentElement !== element) {
-                    element.appendChild(cursor);
-                }
+        if (wisenessArray.length === 0) {
+            // Fallback message if file is empty
+            shuffledWiseness = ["Suprising! I can't even type anything else because the txt file didn't load. Haha."];
+        } else {
+            // Use the fetched and cleaned array to initialize the shuffled list
+            shuffledWiseness = wisenessArray; 
+        }
 
-                if (charIndex < text.length) {
-                    const char = text.charAt(charIndex);
+        // Shuffle the quotes once at the beginning
+        shuffle(shuffledWiseness);
+        
+        // Start the typing loop after data is loaded and shuffled
+        setTimeout(type, 2000); 
 
-                    const shakySpan = document.createElement('span');
-                    shakySpan.className = 'shaky-char';
-                    shakySpan.textContent = char;
+    } catch (e) {
+        console.error("Failed to load wisdom file:", e);
+            shuffledWiseness = ["Suprising! I can't even type anything else because the txt file didn't load. Haha."];
+        setTimeout(type, 2000); 
+    }
+}
 
-                    element.insertBefore(shakySpan, cursor);
 
-                    setTimeout(() => {
-                        shakySpan.outerHTML = shakySpan.innerHTML;
-                    }, 100);
+function type() {
+    // Check if we reached the end of the shuffled list
+    if (currentTextIndex >= shuffledWiseness.length) {
+        // Reset the index and re-shuffle the list for a new cycle
+        currentTextIndex = 0;
+        shuffle(shuffledWiseness);
+    }
 
-                    charIndex++;
-                    typingTimeout = setTimeout(type, typeSpeed);
-                } else {
-                    deletingTimeout = setTimeout(deleteText, 5000);
-                }
-            }
+    // Use the current message from the shuffled array
+    let text = shuffledWiseness[currentTextIndex];
+    let typeSpeed = 50;
 
-          function deleteText() {
-                let text = wiseness[currentTextIndex];
-                let deleteSpeed = 25; // SLOWED DOWN for visible deletion
+    if (cursor.parentElement !== element) {
+        element.appendChild(cursor);
+    }
 
-                if (charIndex > 0) {
-                    // 1. Overwrite content with one less character
-                    element.innerHTML = text.substring(0, charIndex - 1);
-                    
-                    // 2. RE-ATTACH the cursor (which was destroyed by innerHTML)
-                    element.appendChild(cursor); 
+    if (charIndex < text.length) {
+        const char = text.charAt(charIndex);
 
-                    charIndex--;
-                    deletingTimeout = setTimeout(deleteText, deleteSpeed);
-                } else {
-                    currentTextIndex++;
-                    typingTimeout = setTimeout(type, 800);
-                }
-            }
+        const shakySpan = document.createElement('span');
+        shakySpan.className = 'shaky-char';
+        shakySpan.textContent = char;
 
-            setTimeout(type, 2000);
-        </script>
+        element.insertBefore(shakySpan, cursor);
+
+        setTimeout(() => {
+            shakySpan.outerHTML = shakySpan.innerHTML;
+        }, 100);
+
+        charIndex++;
+        typingTimeout = setTimeout(type, typeSpeed);
+    } else {
+        deletingTimeout = setTimeout(deleteText, 5000);
+    }
+}
+
+function deleteText() {
+    let text = shuffledWiseness[currentTextIndex]; 
+    let deleteSpeed = 25; 
+
+    if (charIndex > 0) {
+        // 1. Overwrite content with one less character
+        element.innerHTML = text.substring(0, charIndex - 1);
+        
+        // 2. RE-ATTACH the cursor
+        element.appendChild(cursor); 
+
+        charIndex--;
+        deletingTimeout = setTimeout(deleteText, deleteSpeed);
+    } else {
+        // Move to the next message in the shuffled list
+        currentTextIndex++; 
+        typingTimeout = setTimeout(type, 800);
+    }
+}
+
+// 🔑 Start the entire process by loading the data
+loadWiseness();
+</script>
     </body>
 </html>
