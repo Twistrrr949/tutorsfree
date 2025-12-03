@@ -47,12 +47,12 @@
 
         h2 {
             color: var(--text-color);
-            margin-top: 15px;
+            margin-top: 25px; /* Added spacing above the section headers */
             margin-bottom: 15px;
-            font-size: 1.1em;
+            font-size: 1.2em; /* Slightly larger heading for sections */
             padding-bottom: 5px;
             border-bottom: 1px solid #c8c8c8;
-            font-weight: 600;
+            font-weight: 700;
         }
 
         /* Search Bar Input Neumorphic Styling (Inset look) */
@@ -129,213 +129,215 @@
 <body>
 <div class="container">
     <div class="box">
-        <h1>StarlightGG Games (117 Titles)</h1>
+        <h1>Awesome Games Collection (117 Titles)</h1>
         
         <input type="text" id="gsearchbar" placeholder="Search for a game..." autocomplete="off" spellcheck="false" />
         
         <div id="glist">
-            <h2>All Games</h2>
-            <button class="game-button" data-game-title="10-minutes-till-dawn" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/10-minutes-till-dawn/'">10 Minutes Till Dawn</button>
-            <button class="game-button" data-game-title="1v1-lol" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/1v1-lol/'">1v1.LOL</button>
-            <button class="game-button" data-game-title="2048" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/2048/'">2048</button>
-            <button class="game-button" data-game-title="a-dark-room" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/a-dark-room/'">A Dark Room</button>
-            <button class="game-button" data-game-title="abandoned" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/abandoned/'">Abandoned</button>
-            <button class="game-button" data-game-title="abandoned-2" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/abandoned-2/'">Abandoned 2</button>
-            <button class="game-button" data-game-title="achievement-unlocked" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=achievement-unlocked'">Achievement Unlocked</button>
-            <button class="game-button" data-game-title="achievement-unlocked-2" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=achievement-unlocked-2'">Achievement Unlocked 2</button>
-            <button class="game-button" data-game-title="achievement-unlocked-3" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=achievement-unlocked-3'">Achievement Unlocked 3</button>
-            <button class="game-button" data-game-title="age-of-war" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=age-of-war'">Age of War</button>
-            <button class="game-button" data-game-title="age-of-war-hacked" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=age-of-war-hacked'">Age of War Hacked</button>
-            <button class="game-button" data-game-title="ages-of-conflict" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/ages-of-conflict/'">Ages of Conflict</button>
-            <button class="game-button" data-game-title="aground" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/aground/'">Aground</button>
-            <button class="game-button" data-game-title="amidst-the-sky" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/amidst-the-sky/'">Amidst The Sky</button>
-            <button class="game-button" data-game-title="another-gentlemans-adventure" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/another-gentlemans-adventure/'">Another Gentlemans Adventure</button>
-            <button class="game-button" data-game-title="awesome-tanks" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/awesome-tanks/'">Awesome Tanks</button>
-            <button class="game-button" data-game-title="awesome-tanks-2" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/awesome-tanks-2/'">Awesome Tanks 2</button>
-            <button class="game-button" data-game-title="babel-tower" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/babel-tower/'">Babel Tower</button>
-            <button class="game-button" data-game-title="basket-random" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/basket-random/'">Basket Random</button>
-            <button class="game-button" data-game-title="basketball-stars" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/basketball-stars/'">Basketball Stars</button>
-            <button class="game-button" data-game-title="bit-life" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/bit-life/'">Bit Life</button>
-            <button class="game-button" data-game-title="bloons" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=bloons'">Bloons</button>
-            <button class="game-button" data-game-title="bloons-td-1" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=bloons-td-1'">Bloons TD 1</button>
-            <button class="game-button" data-game-title="bloons-td-2" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=bloons-td-2'">Bloons TD 2</button>
-            <button class="game-button" data-game-title="bloons-td-3" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=bloons-td-3'">Bloons TD 3</button>
-            <button class="game-button" data-game-title="bloons-td-4" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=bloons-td-4'">Bloons TD 4</button>
-            <button class="game-button" data-game-title="bloons-td-5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=bloons-td-5'">Bloons TD 5</button>
-            <button class="game-button" data-game-title="bloxorz" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=bloxorz'">Bloxorz</button>
-            <button class="game-button" data-game-title="boxing-random" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/boxing-random/'">Boxing Random</button>
-            <button class="game-button" data-game-title="breaking-the-bank" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=breaking-the-bank'">Breaking The Bank (Henry Stickmin 0)</button>
-            <button class="game-button" data-game-title="brawl-stars-project-laser" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/brawl-stars-project-laser/'">Brawl Stars Project Laser</button>
-            <button class="game-button" data-game-title="breaklock" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/breaklock/'">Breaklock</button>
-            <button class="game-button" data-game-title="cat-ninja" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=cat-ninja'">Cat Ninja</button>
-            <button class="game-button" data-game-title="chrome-dino" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/chrome-dino/'">Chrome Dino</button>
-            <button class="game-button" data-game-title="clicker-heroes" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/clicker-heroes/'">Clicker Heroes</button>
-            <button class="game-button" data-game-title="clicker-heroes-updated" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/clicker-heroes-updated/'">Clicker Heroes Updated</button>
-            <button class="game-button" data-game-title="conways-game-of-life" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/conways-game-of-life/'">Conway's Game of Life</button>
-            <button class="game-button" data-game-title="cookie-clicker" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/cookie-clicker/'">Cookie Clicker</button>
-            <button class="game-button" data-game-title="core-ball" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/core-ball/'">Core Ball</button>
-            <button class="game-button" data-game-title="creative-kill-chamber" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=creative-kill-chamber'">Creative Kill Chamber</button>
-            <button class="game-button" data-game-title="crossy-road" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/crossy-road/'">Crossy Road</button>
-            <button class="game-button" data-game-title="curveball" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=curveball'">Curveball</button>
-            <button class="game-button" data-game-title="cut-the-rope" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/cut-the-rope/'">Cut The Rope</button>
-            <button class="game-button" data-game-title="dadish" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/dadish/'">Dadish</button>
-            <button class="game-button" data-game-title="dadish-2" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/dadish-2/'">Dadish 2</button>
-            <button class="game-button" data-game-title="dadish-3" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/dadish-3/'">Dadish 3</button>
-            <button class="game-button" data-game-title="doge-miner" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/doge-miner/'">Doge Miner</button>
-            <button class="game-button" data-game-title="dont-escape" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=dont-escape'">Don't Escape</button>
-            <button class="game-button" data-game-title="dont-escape-2" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=dont-escape-2'">Don't Escape 2</button>
-            <button class="game-button" data-game-title="dont-escape-3" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=dont-escape-3'">Don't Escape 3</button>
-            <button class="game-button" data-game-title="doodle-jump" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/doodle-jump/'">Doodle Jump</button>
-            <button class="game-button" data-game-title="drift-boss" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/drift-boss/'">Drift Boss</button>
-            <button class="game-button" data-game-title="drift-hunters" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/drift-hunters/'">Drift Hunters</button>
-            <button class="game-button" data-game-title="drive-mad" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/drive-mad/'">Drive Mad</button>
-            <button class="game-button" data-game-title="drive-mad-s" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/drive-mad-s/'">Drive Mad S</button>
-            <button class="game-button" data-game-title="duck-life" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=duck-life'">Duck Life</button>
-            <button class="game-button" data-game-title="duck-life-2" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=duck-life-2'">Duck Life 2</button>
-            <button class="game-button" data-game-title="duck-life-3" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=duck-life-3'">Duck Life 3</button>
-            <button class="game-button" data-game-title="duck-life-4" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/duck-life-4/'">Duck Life 4</button>
-            <button class="game-button" data-game-title="duck-life-treasure-hunt" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=duck-life-treasure-hunt'">Duck Life Treasure Hunt</button>
-            <button class="game-button" data-game-title="dune" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/dune/'">Dune!</button>
-            <button class="game-button" data-game-title="minecraft-eaglercraft-ampler-launcher" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/ampler-launcher/'">Eaglercraft Ampler Launcher (Minecraft)</button>
-            <button class="game-button" data-game-title="eggy-car" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/eggy-car/'">Eggy Car</button>
-            <button class="game-button" data-game-title="escape-the-bathroom" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=escape-the-bathroom'">Escape The Bathroom</button>
-            <button class="game-button" data-game-title="escape-the-car" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=escape-the-car'">Escape The Car</button>
-            <button class="game-button" data-game-title="escape-the-closet" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=escape-the-closet'">Escape The Closet</button>
-            <button class="game-button" data-game-title="escape-the-freezer" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=escape-the-freezer'">Escape The Freezer</button>
-            <button class="game-button" data-game-title="escape-the-phonebooth" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=escape-the-phonebooth'">Escape The Phonebooth</button>
-            <button class="game-button" data-game-title="escape-the-shack" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=escape-the-shack'">Escape The Shack</button>
-            <button class="game-button" data-game-title="escaping-the-prison" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=escaping-the-prison'">Escaping The Prison (Henry Stickmin 1)</button>
-            <button class="game-button" data-game-title="evowars" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/evowars/'">EvoWars</button>
-            <button class="game-button" data-game-title="extra-games" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/extra-games/'">Extra Games</button>
-            <button class="game-button" data-game-title="factory-balls" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=factory-balls'">Factory Balls</button>
-            <button class="game-button" data-game-title="family-feud" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/family-feud/'">Family Feud</button>
-            <button class="game-button" data-game-title="fireboy-and-watergirl" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/fireboy-and-watergirl/'">Fireboy and Watergirl in the Forest Temple</button>
-            <button class="game-button" data-game-title="fireboy-and-watergirl-2" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/fireboy-and-watergirl-2/'">Fireboy and Watergirl in the Light Temple</button>
-            <button class="game-button" data-game-title="fireboy-and-watergirl-3" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/fireboy-and-watergirl-3/'">Fireboy and Watergirl in the Ice Temple</button>
-            <button class="game-button" data-game-title="fireboy-and-watergirl-4" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/fireboy-and-watergirl-4/'">Fireboy and Watergirl in the Crystal Temple</button>
-            <button class="game-button" data-game-title="flappy-bird" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flappy-bird/'">Flappy Bird</button>
-            <button class="game-button" data-game-title="flash-chess" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=flash-chess'">Flash Chess</button>
-            <button class="game-button" data-game-title="fleeing-the-complex" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=fleeing-the-complex'">Fleeing the Complex (Henry Stickmin 4)</button>
-            <button class="game-button" data-game-title="friday-night-funkin" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/friday-night-funkin/'">Friday Night Funkin</button>
-            <button class="game-button" data-game-title="geometry-dash-lite" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/geometry-dash-lite/'">Geometry Dash Lite</button>
-            <button class="game-button" data-game-title="geometry-dash-remastered" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/geometry-dash-remastered/'">Geometry Dash Remastered</button>
-            <button class="game-button" data-game-title="geometry-vibes" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/geometry-vibes/'">Geometry Vibes</button>
-            <button class="game-button" data-game-title="geometry-vibes-monster" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/geometry-vibes-monster/'">Geometry Vibes Monster</button>
-            <button class="game-button" data-game-title="geometry-vibes-x-ball" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/geometry-vibes-x-ball/'">Geometry Vibes X-Ball</button>
-            <button class="game-button" data-game-title="getaway-shootout" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/getaway-shootout/'">Getaway Shootout</button>
-            <button class="game-button" data-game-title="gons-io" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/gons-io/'">Gons io</button>
-            <button class="game-button" data-game-title="gun-mayhem" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=gun-mayhem'">Gun Mayhem</button>
-            <button class="game-button" data-game-title="gun-mayhem-2" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=gun-mayhem-2'">Gun Mayhem 2</button>
-            <button class="game-button" data-game-title="gunspin" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/gunspin/'">Gun Spin</button>
-            <button class="game-button" data-game-title="hextris" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/hextris/'">Hextris</button>
-            <button class="game-button" data-game-title="idle-breakout" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/idle-breakout/'">Idle Breakout</button>
-            <button class="game-button" data-game-title="incremancer" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/incremancer/'">Incremancer</button>
-            <button class="game-button" data-game-title="infiltrating-the-airship" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=infiltrating-the-airship'">Infiltrating The Airship (Henry Stickmin 3)</button>
-            <button class="game-button" data-game-title="learn-to-fly" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=learn-to-fly'">Learn To Fly</button>
-            <button class="game-button" data-game-title="learn-to-fly-2" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=learn-to-fly-2'">Learn To Fly 2</button>
-            <button class="game-button" data-game-title="learn-to-fly-3" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=learn-to-fly-3'">Learn To Fly 3</button>
-            <button class="game-button" data-game-title="learn-to-fly-idle" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=learn-to-fly-idle'">Learn To Fly Idle</button>
-            <button class="game-button" data-game-title="lion-soldiers-vengeance" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/lion-soldiers-vengeance/'">Lion Solider's Vengeance</button>
-            <button class="game-button" data-game-title="maptroid" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/maptroid/'">Maptroid</button>
-            <button class="game-button" data-game-title="mario-game" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/mario-game/'">Mario</button>
-            <button class="game-button" data-game-title="monkey-mart" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/monkey-mart/'">Monkey Mart</button>
-            <button class="game-button" data-game-title="motox3m" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/motox3m/'">MotoX3M</button>
-            <button class="game-button" data-game-title="n-gon" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/n-gon/'">N-gon</button>
-            <button class="game-button" data-game-title="n-step-steve-part-1" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/n-step-steve-part-1/'">N Step Steve Part 1</button>
-            <button class="game-button" data-game-title="n-step-steve-part-2" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/n-step-steve-part-2/'">N Step Steve Part 2</button>
-            <button class="game-button" data-game-title="ovo" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/ovo/1.4.4/'">OvO</button>
-            <button class="game-button" data-game-title="ovo-2" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/ovo/2.0.2alpha/'">OvO 2</button>
-            <button class="game-button" data-game-title="papas-freezeria" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=papas-freezeria'">Papas Freezeria</button>
-            <button class="game-button" data-game-title="papas-pizzaria" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=papas-pizzaria'">Papas Pizzeria</button>
-            <button class="game-button" data-game-title="particle-clicker" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/particle-clicker/'">Particle Clicker</button>
-            <button class="game-button" data-game-title="pcraft" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/pcraft/'">P.craft</button>
-            <button class="game-button" data-game-title="planet-life" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/planet-life/'">Planet Life</button>
-            <button class="game-button" data-game-title="progress-knight-quest" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/progress-knight-quest/'">Progress Knight Quest</button>
-            <button class="game-button" data-game-title="progress-knight-reborn" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/progress-knight-reborn/'">Progress Knight Reborn</button>
-            <button class="game-button" data-game-title="pull-of-war" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/pull-of-war/'">Pull Of War</button>
-            <button class="game-button" data-game-title="raft-wars" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=raft-wars'">Raft Wars</button>
-            <button class="game-button" data-game-title="raft-wars-2" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=raft-wars-2'">Raft Wars 2</button>
-            <button class="game-button" data-game-title="reach-the-core" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/reach-the-core/'">Reach The Core</button>
-            <button class="game-button" data-game-title="restless-wing-syndrome" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/restless-wing-syndrome/'">Restless Wing Syndrome</button>
-            <button class="game-button" data-game-title="retro-bowl" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/retro-bowl/'">Retro Bowl</button>
-            <button class="game-button" data-game-title="retro-bowl-old" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/retro-bowl-old/'">Retro Bowl Old</button>
-            <button class="game-button" data-game-title="riddle-school" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=riddle-school'">Riddle School</button>
-            <button class="game-button" data-game-title="riddle-school-2" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=riddle-school-2'">Riddle School 2</button>
-            <button class="game-button" data-game-title="riddle-school-3" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=riddle-school-3'">Riddle School 3</button>
-            <button class="game-button" data-game-title="riddle-school-4" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=riddle-school-4'">Riddle School 4</button>
-            <button class="game-button" data-game-title="riddle-school-5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=riddle-school-5'">Riddle School 5</button>
-            <button class="game-button" data-game-title="riddle-transfer" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=riddle-transfer'">Riddle Transfer</button>
-            <button class="game-button" data-game-title="riddle-transfer-2" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=riddle-transfer-2'">Riddle Transfer 2</button>
-            <button class="game-button" data-game-title="rift-shift" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/rift-shift/'">Rift Shift</button>
-            <button class="game-button" data-game-title="rocket-league-2d" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/rocket-league-2d/'">Rocket League 2D</button>
-            <button class="game-button" data-game-title="rogue-soul" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=rogue-soul'">Rogue Soul</button>
-            <button class="game-button" data-game-title="rogue-soul-2" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=rogue-soul-2'">Rogue Soul 2</button>
-            <button class="game-button" data-game-title="rooftop-snipers" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/rooftop-snipers/'">Rooftop Snipers</button>
-            <button class="game-button" data-game-title="rookie-bowman" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/rookie-bowman/'">Rookie Bowman</button>
-            <button class="game-button" data-game-title="run-3" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/run-3/'">Run 3</button>
-            <button class="game-button" data-game-title="run-3-beta" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/run-3-beta/'">Run 3 Beta (may not work)</button>
-            <button class="game-button" data-game-title="sabercut" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/sabercut/'">Sabercut</button>
-            <button class="game-button" data-game-title="sandspiel" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/sandspiel/'">Sandspiel</button>
-            <button class="game-button" data-game-title="scuba-bear" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/scuba-bear/'">Scuba Bear</button>
-            <button class="game-button" data-game-title="shadow-fight" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/shadow-fight/'">Shadow Fight</button>
-            <button class="game-button" data-game-title="slice-master" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/slice-master/'">Slice Master</button>
-            <button class="game-button" data-game-title="slope" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/slope/'">Slope</button>
-            <button class="game-button" data-game-title="smash-karts" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/smash-karts/'">Smash Karts</button>
-            <button class="game-button" data-game-title="smart-ball" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/smart-ball/'">Smart Ball</button>
-            <button class="game-button" data-game-title="soccer-random" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/soccer-random/'">Soccer Random</button>
-            <button class="game-button" data-game-title="station-saturn" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/station-saturn/'">Station Saturn</button>
-            <button class="game-button" data-game-title="stealing-the-diamond" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=stealing-the-diamond'">Stealing The Diamond (Henry Stickmin 2)</button>
-            <button class="game-button" data-game-title="stick-rpg-complete" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=stick-rpg-complete'">Stick RPG Complete</button>
-            <button class="game-button" data-game-title="stick-war" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=stick-war'">Stick War</button>
-            <button class="game-button" data-game-title="stickman-hook" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/stickman-hook/'">Stickman Hook</button>
-            <button class="game-button" data-game-title="submachine" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=submachine'">Submachine</button>
-            <button class="game-button" data-game-title="submachine-0" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=submachine-0'">Submachine 0</button>
-            <button class="game-button" data-game-title="submachine-2" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=submachine-2'">Submachine 2</button>
-            <button class="game-button" data-game-title="submachine-3" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=submachine-3'">Submachine 3</button>
-            <button class="game-button" data-game-title="submachine-4" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=submachine-4'">Submachine 4</button>
-            <button class="game-button" data-game-title="submachine-5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=submachine-5'">Submachine 5</button>
-            <button class="game-button" data-game-title="submachine-6" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=submachine-6'">Submachine 6</button>
-            <button class="game-button" data-game-title="submachine-7" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=submachine-7'">Submachine 7</button>
-            <button class="game-button" data-game-title="submachine-8" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=submachine-8'">Submachine 8</button>
-            <button class="game-button" data-game-title="submachine-9" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=submachine-9'">Submachine 9</button>
-            <button class="game-button" data-game-title="submachine-10" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=submachine-10'">Submachine 10</button>
-            <button class="game-button" data-game-title="submachine-32-chambers" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=submachine-32-chambers'">Submachine 32 Chambers</button>
-            <button class="game-button" data-game-title="submachine-flf" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=submachine-flf'">Submachine FLF</button>
-            <button class="game-button" data-game-title="subway-surfers" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/subway-surfers/'">Subway Surfers</button>
-            <button class="game-button" data-game-title="subway-surfers-ny" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/subway-surfers-ny/'">Subway Surfers New York</button>
-            <button class="game-button" data-game-title="sugar-sugar" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=sugar-sugar'">Sugar Sugar</button>
-            <button class="game-button" data-game-title="swords-and-souls" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=swords-and-souls'">Swords and Souls</button>
-            <button class="game-button" data-game-title="tanuki-sunset" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/tanuki-sunset/'">Tanuki Sunset</button>
-            <button class="game-button" data-game-title="temple-run-2" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/temple-run-2/'">Temple Run 2</button>
-            <button class="game-button" data-game-title="the-final-earth" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/the-final-earth/'">The Final Earth</button>
-            <button class="game-button" data-game-title="the-impossible-quiz" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=the-impossible-quiz'">The Impossible Quiz</button>
-            <button class="game-button" data-game-title="the-treasure" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/the-treasure/'">The Treasure</button>
-            <button class="game-button" data-game-title="there-is-no-game" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/there-is-no-game/'">There Is No Game</button>
-            <button class="game-button" data-game-title="this-is-the-only-level" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=this-is-the-only-level'">This Is The Only Level</button>
-            <button class="game-button" data-game-title="this-is-the-only-level-2" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=this-is-the-only-level-2'">This Is The Only Level 2</button>
-            <button class="game-button" data-game-title="tic-tac-what" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/tic-tac-what/'">Tic Tac What?</button>
-            <button class="game-button" data-game-title="time-shooter" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/time-shooter/'">Time Shooter</button>
-            <button class="game-button" data-game-title="time-shooter-3" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/time-shooter-3/'">Time Shooter 3</button>
-            <button class="game-button" data-game-title="tiny-fishing" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/tiny-fishing/'">Tiny Fishing</button>
-            <button class="game-button" data-game-title="trace" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/trace/'">Trace</button>
-            <button class="game-button" data-game-title="tunnel-rush" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/tunnel-rush/'">Tunnel Rush</button>
-            <button class="game-button" data-game-title="two-ball-3d" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/two-ball-3d/'">Two Ball 3d</button>
-            <button class="game-button" data-game-title="ultimate-chess" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=ultimate-chess'">Ultimate Chess</button>
-            <button class="game-button" data-game-title="vex-3" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/vex-3/'">Vex 3</button>
-            <button class="game-button" data-game-title="vex-4" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/vex-4/'">Vex 4</button>
-            <button class="game-button" data-game-title="vex-5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/vex-5/'">Vex 5</button>
-            <button class="game-button" data-game-title="vex-6" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/vex-6/'">Vex 6</button>
-            <button class="game-button" data-game-title="vex-7" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/vex-7/'">Vex 7</button>
-            <button class="game-button" data-game-title="volley-random" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/volley-random/'">Volley Random</button>
-            <button class="game-button" data-game-title="web-osu" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/web-osu/'">Web OSU</button>
-            <button class="game-button" data-game-title="where-is-the-water" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/where-is-the-water/'">Where is the Water?</button>
-            <button class="game-button" data-game-title="x-trench-run" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/x-trench-run/'">X Trench Run</button>
-            <button class="game-button" data-game-title="yohoho" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/yohoho/'">Yohoho</button>
             
+            <h2 data-section-name="HTML5 Games">HTML5/Modern Games (73)</h2>
+            <button class="game-button" data-game-title="10-minutes-till-dawn" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/10-minutes-till-dawn/'">10 Minutes Till Dawn</button>
+            <button class="game-button" data-game-title="1v1-lol" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/1v1-lol/'">1v1.LOL</button>
+            <button class="game-button" data-game-title="2048" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/2048/'">2048</button>
+            <button class="game-button" data-game-title="a-dark-room" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/a-dark-room/'">A Dark Room</button>
+            <button class="game-button" data-game-title="abandoned" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/abandoned/'">Abandoned</button>
+            <button class="game-button" data-game-title="abandoned-2" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/abandoned-2/'">Abandoned 2</button>
+            <button class="game-button" data-game-title="ages-of-conflict" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/ages-of-conflict/'">Ages of Conflict</button>
+            <button class="game-button" data-game-title="aground" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/aground/'">Aground</button>
+            <button class="game-button" data-game-title="amidst-the-sky" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/amidst-the-sky/'">Amidst The Sky</button>
+            <button class="game-button" data-game-title="eaglercraft-minecraft-ampler-launcher" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/ampler-launcher/'">Eaglercraft Ampler Launcher (Minecraft)</button>
+            <button class="game-button" data-game-title="another-gentlemans-adventure" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/another-gentlemans-adventure/'">Another Gentlemans Adventure</button>
+            <button class="game-button" data-game-title="awesome-tanks" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/awesome-tanks/'">Awesome Tanks</button>
+            <button class="game-button" data-game-title="awesome-tanks-2" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/awesome-tanks-2/'">Awesome Tanks 2</button>
+            <button class="game-button" data-game-title="babel-tower" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/babel-tower/'">Babel Tower</button>
+            <button class="game-button" data-game-title="basket-random" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/basket-random/'">Basket Random</button>
+            <button class="game-button" data-game-title="basketball-stars" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/basketball-stars/'">Basketball Stars</button>
+            <button class="game-button" data-game-title="bit-life" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/bit-life/'">Bit Life</button>
+            <button class="game-button" data-game-title="boxing-random" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/boxing-random/'">Boxing Random</button>
+            <button class="game-button" data-game-title="brawl-stars-project-laser" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/brawl-stars-project-laser/'">Brawl Stars Project Laser</button>
+            <button class="game-button" data-game-title="breaklock" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/breaklock/'">Breaklock</button>
+            <button class="game-button" data-game-title="chrome-dino" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/chrome-dino/'">Chrome Dino</button>
+            <button class="game-button" data-game-title="clicker-heroes" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/clicker-heroes/'">Clicker Heroes</button>
+            <button class="game-button" data-game-title="clicker-heroes-updated" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/clicker-heroes-updated/'">Clicker Heroes Updated</button>
+            <button class="game-button" data-game-title="conways-game-of-life" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/conways-game-of-life/'">Conway's Game of Life</button>
+            <button class="game-button" data-game-title="cookie-clicker" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/cookie-clicker/'">Cookie Clicker</button>
+            <button class="game-button" data-game-title="core-ball" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/core-ball/'">Core Ball</button>
+            <button class="game-button" data-game-title="crossy-road" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/crossy-road/'">Crossy Road</button>
+            <button class="game-button" data-game-title="cut-the-rope" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/cut-the-rope/'">Cut The Rope</button>
+            <button class="game-button" data-game-title="dadish" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/dadish/'">Dadish</button>
+            <button class="game-button" data-game-title="dadish-2" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/dadish-2/'">Dadish 2</button>
+            <button class="game-button" data-game-title="dadish-3" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/dadish-3/'">Dadish 3</button>
+            <button class="game-button" data-game-title="doge-miner" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/doge-miner/'">Doge Miner</button>
+            <button class="game-button" data-game-title="doodle-jump" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/doodle-jump/'">Doodle Jump</button>
+            <button class="game-button" data-game-title="drift-boss" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/drift-boss/'">Drift Boss</button>
+            <button class="game-button" data-game-title="drift-hunters" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/drift-hunters/'">Drift Hunters</button>
+            <button class="game-button" data-game-title="drive-mad" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/drive-mad/'">Drive Mad</button>
+            <button class="game-button" data-game-title="drive-mad-s" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/drive-mad-s/'">Drive Mad S</button>
+            <button class="game-button" data-game-title="duck-life-4" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/duck-life-4/'">Duck Life 4</button>
+            <button class="game-button" data-game-title="dune" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/dune/'">Dune!</button>
+            <button class="game-button" data-game-title="eggy-car" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/eggy-car/'">Eggy Car</button>
+            <button class="game-button" data-game-title="evowars" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/evowars/'">EvoWars</button>
+            <button class="game-button" data-game-title="family-feud" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/family-feud/'">Family Feud</button>
+            <button class="game-button" data-game-title="fireboy-and-watergirl" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/fireboy-and-watergirl/'">Fireboy and Watergirl in the Forest Temple</button>
+            <button class="game-button" data-game-title="fireboy-and-watergirl-2" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/fireboy-and-watergirl-2/'">Fireboy and Watergirl in the Light Temple</button>
+            <button class="game-button" data-game-title="fireboy-and-watergirl-3" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/fireboy-and-watergirl-3/'">Fireboy and Watergirl in the Ice Temple</button>
+            <button class="game-button" data-game-title="fireboy-and-watergirl-4" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/fireboy-and-watergirl-4/'">Fireboy and Watergirl in the Crystal Temple</button>
+            <button class="game-button" data-game-title="flappy-bird" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flappy-bird/'">Flappy Bird</button>
+            <button class="game-button" data-game-title="friday-night-funkin" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/friday-night-funkin/'">Friday Night Funkin</button>
+            <button class="game-button" data-game-title="geometry-dash-lite" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/geometry-dash-lite/'">Geometry Dash Lite</button>
+            <button class="game-button" data-game-title="geometry-dash-remastered" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/geometry-dash-remastered/'">Geometry Dash Remastered</button>
+            <button class="game-button" data-game-title="geometry-vibes" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/geometry-vibes/'">Geometry Vibes</button>
+            <button class="game-button" data-game-title="geometry-vibes-monster" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/geometry-vibes-monster/'">Geometry Vibes Monster</button>
+            <button class="game-button" data-game-title="geometry-vibes-x-ball" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/geometry-vibes-x-ball/'">Geometry Vibes X-Ball</button>
+            <button class="game-button" data-game-title="getaway-shootout" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/getaway-shootout/'">Getaway Shootout</button>
+            <button class="game-button" data-game-title="gons-io" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/gons-io/'">Gons io</button>
+            <button class="game-button" data-game-title="gunspin" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/gunspin/'">Gun Spin</button>
+            <button class="game-button" data-game-title="hextris" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/hextris/'">Hextris</button>
+            <button class="game-button" data-game-title="idle-breakout" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/idle-breakout/'">Idle Breakout</button>
+            <button class="game-button" data-game-title="incremancer" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/incremancer/'">Incremancer</button>
+            <button class="game-button" data-game-title="lion-soldiers-vengeance" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/lion-soldiers-vengeance/'">Lion Solider's Vengeance</button>
+            <button class="game-button" data-game-title="maptroid" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/maptroid/'">Maptroid</button>
+            <button class="game-button" data-game-title="mario-game" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/mario-game/'">Mario</button>
+            <button class="game-button" data-game-title="monkey-mart" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/monkey-mart/'">Monkey Mart</button>
+            <button class="game-button" data-game-title="motox3m" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/motox3m/'">MotoX3M</button>
+            <button class="game-button" data-game-title="n-gon" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/n-gon/'">N-gon</button>
+            <button class="game-button" data-game-title="n-step-steve-part-1" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/n-step-steve-part-1/'">N Step Steve Part 1</button>
+            <button class="game-button" data-game-title="n-step-steve-part-2" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/n-step-steve-part-2/'">N Step Steve Part 2</button>
+            <button class="game-button" data-game-title="ovo" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/ovo/1.4.4/'">OvO</button>
+            <button class="game-button" data-game-title="ovo-2" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/ovo/2.0.2alpha/'">OvO 2</button>
+            <button class="game-button" data-game-title="particle-clicker" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/particle-clicker/'">Particle Clicker</button>
+            <button class="game-button" data-game-title="pcraft" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/pcraft/'">P.craft</button>
+            <button class="game-button" data-game-title="planet-life" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/planet-life/'">Planet Life</button>
+            <button class="game-button" data-game-title="progress-knight-quest" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/progress-knight-quest/'">Progress Knight Quest</button>
+            <button class="game-button" data-game-title="progress-knight-reborn" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/progress-knight-reborn/'">Progress Knight Reborn</button>
+            <button class="game-button" data-game-title="pull-of-war" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/pull-of-war/'">Pull Of War</button>
+            <button class="game-button" data-game-title="reach-the-core" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/reach-the-core/'">Reach The Core</button>
+            <button class="game-button" data-game-title="restless-wing-syndrome" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/restless-wing-syndrome/'">Restless Wing Syndrome</button>
+            <button class="game-button" data-game-title="retro-bowl" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/retro-bowl/'">Retro Bowl</button>
+            <button class="game-button" data-game-title="retro-bowl-old" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/retro-bowl-old/'">Retro Bowl Old</button>
+            <button class="game-button" data-game-title="rift-shift" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/rift-shift/'">Rift Shift</button>
+            <button class="game-button" data-game-title="rocket-league-2d" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/rocket-league-2d/'">Rocket League 2D</button>
+            <button class="game-button" data-game-title="rooftop-snipers" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/rooftop-snipers/'">Rooftop Snipers</button>
+            <button class="game-button" data-game-title="rookie-bowman" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/rookie-bowman/'">Rookie Bowman</button>
+            <button class="game-button" data-game-title="run-3" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/run-3/'">Run 3</button>
+            <button class="game-button" data-game-title="run-3-beta" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/run-3-beta/'">Run 3 Beta (may not work)</button>
+            <button class="game-button" data-game-title="sabercut" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/sabercut/'">Sabercut</button>
+            <button class="game-button" data-game-title="sandspiel" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/sandspiel/'">Sandspiel</button>
+            <button class="game-button" data-game-title="scuba-bear" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/scuba-bear/'">Scuba Bear</button>
+            <button class="game-button" data-game-title="shadow-fight" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/shadow-fight/'">Shadow Fight</button>
+            <button class="game-button" data-game-title="slice-master" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/slice-master/'">Slice Master</button>
+            <button class="game-button" data-game-title="slope" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/slope/'">Slope</button>
+            <button class="game-button" data-game-title="smash-karts" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/smash-karts/'">Smash Karts</button>
+            <button class="game-button" data-game-title="smart-ball" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/smart-ball/'">Smart Ball</button>
+            <button class="game-button" data-game-title="soccer-random" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/soccer-random/'">Soccer Random</button>
+            <button class="game-button" data-game-title="station-saturn" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/station-saturn/'">Station Saturn</button>
+            <button class="game-button" data-game-title="stickman-hook" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/stickman-hook/'">Stickman Hook</button>
+            <button class="game-button" data-game-title="subway-surfers" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/subway-surfers/'">Subway Surfers</button>
+            <button class="game-button" data-game-title="subway-surfers-ny" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/subway-surfers-ny/'">Subway Surfers New York</button>
+            <button class="game-button" data-game-title="tanuki-sunset" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/tanuki-sunset/'">Tanuki Sunset</button>
+            <button class="game-button" data-game-title="temple-run-2" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/temple-run-2/'">Temple Run 2</button>
+            <button class="game-button" data-game-title="the-final-earth" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/the-final-earth/'">The Final Earth</button>
+            <button class="game-button" data-game-title="the-treasure" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/the-treasure/'">The Treasure</button>
+            <button class="game-button" data-game-title="there-is-no-game" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/there-is-no-game/'">There Is No Game</button>
+            <button class="game-button" data-game-title="tic-tac-what" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/tic-tac-what/'">Tic Tac What?</button>
+            <button class="game-button" data-game-title="time-shooter" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/time-shooter/'">Time Shooter</button>
+            <button class="game-button" data-game-title="time-shooter-3" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/time-shooter-3/'">Time Shooter 3</button>
+            <button class="game-button" data-game-title="tiny-fishing" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/tiny-fishing/'">Tiny Fishing</button>
+            <button class="game-button" data-game-title="trace" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/trace/'">Trace</button>
+            <button class="game-button" data-game-title="tunnel-rush" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/tunnel-rush/'">Tunnel Rush</button>
+            <button class="game-button" data-game-title="two-ball-3d" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/two-ball-3d/'">Two Ball 3d</button>
+            <button class="game-button" data-game-title="vex-3" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/vex-3/'">Vex 3</button>
+            <button class="game-button" data-game-title="vex-4" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/vex-4/'">Vex 4</button>
+            <button class="game-button" data-game-title="vex-5" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/vex-5/'">Vex 5</button>
+            <button class="game-button" data-game-title="vex-6" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/vex-6/'">Vex 6</button>
+            <button class="game-button" data-game-title="vex-7" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/vex-7/'">Vex 7</button>
+            <button class="game-button" data-game-title="volley-random" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/volley-random/'">Volley Random</button>
+            <button class="game-button" data-game-title="web-osu" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/web-osu/'">Web OSU</button>
+            <button class="game-button" data-game-title="where-is-the-water" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/where-is-the-water/'">Where is the Water?</button>
+            <button class="game-button" data-game-title="x-trench-run" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/x-trench-run/'">X Trench Run</button>
+            <button class="game-button" data-game-title="yohoho" data-game-type="html5" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/yohoho/'">Yohoho</button>
+
+            <h2 data-section-name="Flash Games">Flash Games (44)</h2>
+            <button class="game-button" data-game-title="achievement-unlocked" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=achievement-unlocked'">Achievement Unlocked</button>
+            <button class="game-button" data-game-title="achievement-unlocked-2" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=achievement-unlocked-2'">Achievement Unlocked 2</button>
+            <button class="game-button" data-game-title="achievement-unlocked-3" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=achievement-unlocked-3'">Achievement Unlocked 3</button>
+            <button class="game-button" data-game-title="age-of-war" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=age-of-war'">Age of War</button>
+            <button class="game-button" data-game-title="age-of-war-hacked" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=age-of-war-hacked'">Age of War Hacked</button>
+            <button class="game-button" data-game-title="bloons" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=bloons'">Bloons</button>
+            <button class="game-button" data-game-title="bloons-td-1" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=bloons-td-1'">Bloons TD 1</button>
+            <button class="game-button" data-game-title="bloons-td-2" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=bloons-td-2'">Bloons TD 2</button>
+            <button class="game-button" data-game-title="bloons-td-3" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=bloons-td-3'">Bloons TD 3</button>
+            <button class="game-button" data-game-title="bloons-td-4" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=bloons-td-4'">Bloons TD 4</button>
+            <button class="game-button" data-game-title="bloons-td-5" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=bloons-td-5'">Bloons TD 5</button>
+            <button class="game-button" data-game-title="bloxorz" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=bloxorz'">Bloxorz</button>
+            <button class="game-button" data-game-title="breaking-the-bank" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=breaking-the-bank'">Breaking The Bank (Henry Stickmin 0)</button>
+            <button class="game-button" data-game-title="cat-ninja" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=cat-ninja'">Cat Ninja</button>
+            <button class="game-button" data-game-title="creative-kill-chamber" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=creative-kill-chamber'">Creative Kill Chamber</button>
+            <button class="game-button" data-game-title="curveball" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=curveball'">Curveball</button>
+            <button class="game-button" data-game-title="dont-escape" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=dont-escape'">Don't Escape</button>
+            <button class="game-button" data-game-title="dont-escape-2" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=dont-escape-2'">Don't Escape 2</button>
+            <button class="game-button" data-game-title="dont-escape-3" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=dont-escape-3'">Don't Escape 3</button>
+            <button class="game-button" data-game-title="duck-life" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=duck-life'">Duck Life</button>
+            <button class="game-button" data-game-title="duck-life-2" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=duck-life-2'">Duck Life 2</button>
+            <button class="game-button" data-game-title="duck-life-3" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=duck-life-3'">Duck Life 3</button>
+            <button class="game-button" data-game-title="duck-life-treasure-hunt" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=duck-life-treasure-hunt'">Duck Life Treasure Hunt</button>
+            <button class="game-button" data-game-title="escape-the-bathroom" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=escape-the-bathroom'">Escape The Bathroom</button>
+            <button class="game-button" data-game-title="escape-the-car" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=escape-the-car'">Escape The Car</button>
+            <button class="game-button" data-game-title="escape-the-closet" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=escape-the-closet'">Escape The Closet</button>
+            <button class="game-button" data-game-title="escape-the-freezer" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=escape-the-freezer'">Escape The Freezer</button>
+            <button class="game-button" data-game-title="escape-the-phonebooth" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=escape-the-phonebooth'">Escape The Phonebooth</button>
+            <button class="game-button" data-game-title="escape-the-shack" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=escape-the-shack'">Escape The Shack</button>
+            <button class="game-button" data-game-title="escaping-the-prison" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=escaping-the-prison'">Escaping The Prison (Henry Stickmin 1)</button>
+            <button class="game-button" data-game-title="factory-balls" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=factory-balls'">Factory Balls</button>
+            <button class="game-button" data-game-title="fleeing-the-complex" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=fleeing-the-complex'">Fleeing the Complex (Henry Stickmin 4)</button>
+            <button class="game-button" data-game-title="flash-chess" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=flash-chess'">Flash Chess</button>
+            <button class="game-button" data-game-title="gun-mayhem" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=gun-mayhem'">Gun Mayhem</button>
+            <button class="game-button" data-game-title="gun-mayhem-2" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=gun-mayhem-2'">Gun Mayhem 2</button>
+            <button class="game-button" data-game-title="infiltrating-the-airship" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=infiltrating-the-airship'">Infiltrating The Airship (Henry Stickmin 3)</button>
+            <button class="game-button" data-game-title="learn-to-fly" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=learn-to-fly'">Learn To Fly</button>
+            <button class="game-button" data-game-title="learn-to-fly-2" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=learn-to-fly-2'">Learn To Fly 2</button>
+            <button class="game-button" data-game-title="learn-to-fly-3" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=learn-to-fly-3'">Learn To Fly 3</button>
+            <button class="game-button" data-game-title="learn-to-fly-idle" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=learn-to-fly-idle'">Learn To Fly Idle</button>
+            <button class="game-button" data-game-title="papas-freezeria" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=papas-freezeria'">Papas Freezeria</button>
+            <button class="game-button" data-game-title="papas-pizzaria" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=papas-pizzaria'">Papas Pizzeria</button>
+            <button class="game-button" data-game-title="raft-wars" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=raft-wars'">Raft Wars</button>
+            <button class="game-button" data-game-title="raft-wars-2" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=raft-wars-2'">Raft Wars 2</button>
+            <button class="game-button" data-game-title="riddle-school" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=riddle-school'">Riddle School</button>
+            <button class="game-button" data-game-title="riddle-school-2" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=riddle-school-2'">Riddle School 2</button>
+            <button class="game-button" data-game-title="riddle-school-3" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=riddle-school-3'">Riddle School 3</button>
+            <button class="game-button" data-game-title="riddle-school-4" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=riddle-school-4'">Riddle School 4</button>
+            <button class="game-button" data-game-title="riddle-school-5" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=riddle-school-5'">Riddle School 5</button>
+            <button class="game-button" data-game-title="riddle-transfer" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=riddle-transfer'">Riddle Transfer</button>
+            <button class="game-button" data-game-title="riddle-transfer-2" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=riddle-transfer-2'">Riddle Transfer 2</button>
+            <button class="game-button" data-game-title="rogue-soul" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=rogue-soul'">Rogue Soul</button>
+            <button class="game-button" data-game-title="rogue-soul-2" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=rogue-soul-2'">Rogue Soul 2</button>
+            <button class="game-button" data-game-title="stealing-the-diamond" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=stealing-the-diamond'">Stealing The Diamond (Henry Stickmin 2)</button>
+            <button class="game-button" data-game-title="stick-rpg-complete" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=stick-rpg-complete'">Stick RPG Complete</button>
+            <button class="game-button" data-game-title="stick-war" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=stick-war'">Stick War</button>
+            <button class="game-button" data-game-title="submachine" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=submachine'">Submachine</button>
+            <button class="game-button" data-game-title="submachine-0" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=submachine-0'">Submachine 0</button>
+            <button class="game-button" data-game-title="submachine-2" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=submachine-2'">Submachine 2</button>
+            <button class="game-button" data-game-title="submachine-3" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=submachine-3'">Submachine 3</button>
+            <button class="game-button" data-game-title="submachine-4" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=submachine-4'">Submachine 4</button>
+            <button class="game-button" data-game-title="submachine-5" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=submachine-5'">Submachine 5</button>
+            <button class="game-button" data-game-title="submachine-6" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=submachine-6'">Submachine 6</button>
+            <button class="game-button" data-game-title="submachine-7" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=submachine-7'">Submachine 7</button>
+            <button class="game-button" data-game-title="submachine-8" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=submachine-8'">Submachine 8</button>
+            <button class="game-button" data-game-title="submachine-9" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=submachine-9'">Submachine 9</button>
+            <button class="game-button" data-game-title="submachine-10" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=submachine-10'">Submachine 10</button>
+            <button class="game-button" data-game-title="submachine-32-chambers" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=submachine-32-chambers'">Submachine 32 Chambers</button>
+            <button class="game-button" data-game-title="submachine-flf" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=submachine-flf'">Submachine FLF</button>
+            <button class="game-button" data-game-title="sugar-sugar" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=sugar-sugar'">Sugar Sugar</button>
+            <button class="game-button" data-game-title="swords-and-souls" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=swords-and-souls'">Swords and Souls</button>
+            <button class="game-button" data-game-title="the-impossible-quiz" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=the-impossible-quiz'">The Impossible Quiz</button>
+            <button class="game-button" data-game-title="this-is-the-only-level" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=this-is-the-only-level'">This Is The Only Level</button>
+            <button class="game-button" data-game-title="this-is-the-only-level-2" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=this-is-the-only-level-2'">This Is The Only Level 2</button>
+            <button class="game-button" data-game-title="ultimate-chess" data-game-type="flash" onclick="window.location.href='https://starlightgg.github.io/monkeygg2/games/flash/?game=ultimate-chess'">Ultimate Chess</button>
+
         </div>
         
         <a id="no-results-link" class="game-button" href="https://starlightgg.github.io/monkeygg2/games/extra-games/" style="display: none;">
-            No results found. click for More Games!
+            No results found. Click here for More Games!
         </a>
 
     </div>
@@ -345,39 +347,58 @@
     document.addEventListener('DOMContentLoaded', () => {
         const searchBar = document.getElementById('gsearchbar');
         const gameButtons = document.querySelectorAll('#glist .game-button');
+        const sectionHeaders = document.querySelectorAll('#glist h2');
         const noResultsLink = document.getElementById('no-results-link');
-        const listHeader = document.querySelector('#glist h2');
 
         const filterGames = () => {
             // Normalize search value: uppercase and remove spaces/hyphens for better fuzzy matching
             const searchValue = searchBar.value.toUpperCase().replace(/[- ]/g, '');
-            let visibleCount = 0;
+            let totalVisibleCount = 0;
+            let sectionVisibleCounts = {};
 
+            // 1. Filter the game buttons
             gameButtons.forEach(button => {
-                // Use the data-game-title attribute (original hyphenated version) for filtering
                 const gameTitle = button.getAttribute('data-game-title').toUpperCase().replace(/[- ]/g, '');
-                
+                const gameType = button.getAttribute('data-game-type'); // 'html5' or 'flash'
+
                 if (gameTitle.includes(searchValue)) {
                     button.style.display = 'block';
-                    visibleCount++;
+                    totalVisibleCount++;
+                    // Keep track of counts per section
+                    sectionVisibleCounts[gameType] = (sectionVisibleCounts[gameType] || 0) + 1;
                 } else {
                     button.style.display = 'none';
                 }
             });
 
-            // Logic for the header
-            if (searchBar.value.trim() === '') {
-                listHeader.textContent = `All Games`;
-                listHeader.style.display = 'block';
-            } else if (visibleCount > 0) {
-                listHeader.textContent = `Found ${visibleCount} Result${visibleCount !== 1 ? 's' : ''}`;
-                listHeader.style.display = 'block';
-            } else {
-                listHeader.style.display = 'none';
-            }
+            // 2. Adjust visibility and text of section headers
+            sectionHeaders.forEach(header => {
+                const sectionName = header.getAttribute('data-section-name'); // e.g., 'HTML5 Games'
+                const sectionType = header.getAttribute('data-section-name').toLowerCase().split(' ')[0]; // 'html5' or 'flash'
+                const currentCount = sectionVisibleCounts[sectionType] || 0;
+
+                if (searchValue.length > 0) {
+                    // During a search, only show the header if it has visible games
+                    if (currentCount > 0) {
+                        header.textContent = `${sectionName}: ${currentCount} Result${currentCount !== 1 ? 's' : ''}`;
+                        header.style.display = 'block';
+                    } else {
+                        header.style.display = 'none';
+                    }
+                } else {
+                    // No search term: display original header text with total count
+                    header.style.display = 'block';
+                    // Re-calculate the static total for display name (using a lookup map if necessary, or just hardcoded like before)
+                    if (sectionType === 'html5') {
+                        header.textContent = `HTML5/Modern Games (73)`;
+                    } else if (sectionType === 'flash') {
+                        header.textContent = `Flash Games (44)`;
+                    }
+                }
+            });
             
-            // Logic for "extra-games" link on zero results
-            if (visibleCount === 0 && searchBar.value.trim() !== '') {
+            // 3. Logic for "extra-games" link on zero results
+            if (totalVisibleCount === 0 && searchBar.value.trim() !== '') {
                 noResultsLink.style.display = 'block';
             } else {
                 noResultsLink.style.display = 'none';
