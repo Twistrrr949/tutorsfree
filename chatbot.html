@@ -601,12 +601,12 @@ body, html {
 
         // --- System Prompt Setup ---
         const BASE_SYSTEM_PROMPT_CONTENT = "You are a helpful and fast AI assistant powered by StarlightGG. You are currently running on the [MODEL_NAME] model. Keep your responses concise.";
-
-        function getModelSystemPrompt(modelName = CURRENT_MODEL.name) {
-            return { 
-                "role": "system", 
-                "content": BASE_SYSTEM_PROMPT_CONTENT.replace('[MODEL_NAME]', modelName) 
-            };
+const VISION_SYSTEM_PROMPT_CONTENT = "You are a dedicated **Vision Expert** powered by StarlightGG and running on the [MODEL_NAME] model. **Crucially, you are a multimodal processor. Whenever a user submits an image, your primary and IMMEDIATE task is to analyze it, describe its contents, and address the user's prompt using the visual data.** Do NOT state that you cannot see images. Always be direct and confident in your visual analysis.";        function getModelSystemPrompt(modelName = CURRENT_MODEL.name,isVisionModel = false) {
+const content = isVisionModel ? VISION_SYSTEM_PROMPT_CONTENT : BASE_SYSTEM_PROMPT_CONTENT;
+return { 
+        "role": "system", 
+        "content": content.replace('[MODEL_NAME]', modelName) 
+    };
         }
 
         let GROQ_API_KEY = null; 
@@ -787,6 +787,11 @@ body, html {
                 if (currentChatObject && currentChatObject.history && currentChatObject.history.length > 0) {
                     currentChatObject.history[0] = getModelSystemPrompt(CURRENT_MODEL.name);
                     saveStateToLocalStorage();
+                    // 💡 MODIFIED: Pass the multimodal flag to the prompt builder
+        currentChatObject.history[0] = getModelSystemPrompt(
+            CURRENT_MODEL.name, 
+            CURRENT_MODEL.multimodal // Pass true/false here
+        );
                 }
             }
 
@@ -904,8 +909,7 @@ function saveStateToLocalStorage() {
 
         // 💡 MODIFIED: Accepts initialTitle and stores history as an object
         function createNewChatObject(id, initialTitle) {
-            const newHistory = [getModelSystemPrompt(CURRENT_MODEL.name)];
-            
+const newHistory = [getModelSystemPrompt(CURRENT_MODEL.name, CURRENT_MODEL.multimodal)];            
             allChatHistories[id] = {
                 history: newHistory,
                 title: initialTitle
@@ -984,6 +988,7 @@ function saveStateToLocalStorage() {
                 item.classList.remove('active');
             });
             document.querySelector(`.chat-item[data-chat-id="${chatId}"]`).classList.add('active');
+            renderCurrentChat(); 
         }
 
         function renderSidebar() {
