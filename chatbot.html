@@ -897,7 +897,6 @@ function addMessage(role, content, targetElement = chatBox) {
             
             showStartPage();
             apiStatus.textContent = 'Fetching API Key...';
-            toggleModelSelectorLock();
             try {
                 const response = await fetch(API_KEY_URL);
                 if (!response.ok) throw new Error(`HTTP Status: ${response.status}`);
@@ -926,6 +925,8 @@ function addMessage(role, content, targetElement = chatBox) {
                 console.error('Groq API Key Loading Error:', error);
                 apiStatus.innerHTML = `<span style="color:red;">Error: Could not load API Key. (${error.message})</span>`;
             }
+                        toggleModelSelectorLock();
+
         }
         
 async function sendMessage() {
