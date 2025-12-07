@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -916,7 +917,7 @@
           🔗 Embed Links
         </button>
         <button id="tab-links" onclick="showTab('links', this)">
-          🌐 External Links 
+          🌐 Utilities  
         </button>
 
         <button id="tab-links" onclick="showTab('settings', this)">
@@ -977,7 +978,7 @@
           <div class="menu-section-title">🌐 Miscellaneous</div>
           <div class="menu-buttons">
             <button
-              onclick=" window.location.href = '/chat.html'; "
+              onclick="showModal('To login, use the username button on top, also, DO NOT USE INAPPROPRIATE NAMES PLEASE!'); showIframe('https://deadsimplechat.com/xlR-fRK3h'); "
             >
             🗨️ Chat with friends/community
             </button>
@@ -987,7 +988,7 @@
             🎵 My playlist
             </button>
             <button
-              onclick=" window.location.href = '/chatbot.html'; "
+              onclick="showIframe('https://starlightgg.github.io/chatbot') "
             >
             🤖 Chat Bot (fixed)
             </button>
@@ -1129,7 +1130,7 @@
           </button>
           <button onclick="backToMain()">⬅️ Back to Main Menu</button>
         </nav>
-        <iframe id="my-iframe" allowfullscreen ></iframe>
+        <iframe id="my-iframe" allowfullscreen  sandbox="allow-scripts allow-top-navigation allow-forms allow-same-origin allow-pointer-lock allow-modals allow-orientation-lock allow-presentation"></iframe>
       </div>
 
       <div class="top-controls">
@@ -1725,7 +1726,7 @@ loadQuotes();
             await showModal("If you judge my music or play it out loud to the class, I will punch you, slice you, grate you, burn you, put you in the oven, feed you to dogs, hang you, cut you, choke you, kick you, whip you, and dump you out.");
             
             // 2. This line only runs AFTER the user closes the modal.
-            window.open('playlist.html', '_blank'); 
+            showIframe('https://starlightgg.github.io/playlist');
         }
 
 
