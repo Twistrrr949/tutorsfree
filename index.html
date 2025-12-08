@@ -270,6 +270,25 @@
       #custom-cloak-options .settings-item {
            gap: 15px;
       }
+            /* NEW: Hide/Show logic for custom options */
+      #url-cloak-options {
+          display: none; /* Hidden by default */
+          width: 100%;
+
+          /* These match the .settings-container structure */
+          flex-direction: column;
+          gap: 1px;
+          align-items: center;
+      }
+
+      #url-cloak-options.visible {
+          display: flex; /* This class will be added by JS to show it */
+      }
+
+      /* Fix the gap issue inside the wrapper */
+      #url-cloak-options .settings-item {
+           gap: 15px;
+      }
               /* --- Loading Screen Styles (Neumorphic) --- */
               #loading-screen {
                   position: fixed;
@@ -842,8 +861,7 @@
     z-index: 100; /* Ensures it stays above other page content */
 }
 
-    </style>
-  </head>
+    </style>  </head>
   <body>
       <!-- 3. Modal HTML Structure (from modal_structure.html) -->
     <!-- It's best to place this right before the closing </body> tag -->
@@ -1071,6 +1089,7 @@
                 <option value="Google Classroom - Google Search">Fake Google search</option>
 
                 <option value="custom">Custom Cloak...</option>
+                <option value="url-cloak">URL Cloak...</option>
               </select>
             </div>
             <div class="settings-item">
@@ -1112,10 +1131,25 @@
               <div class="menu-buttons" style="margin-top: 25px;">
                 <button onclick="runCustomCloak()">Apply Custom Cloak</button>
               </div>
+
+          </div>
+
+              <div id="url-cloak-options" class="cloak-option-group">
+                   <h3>Cloak from URL</h3>
+                                 <div class="settings-item">
+
+                <input type="text" id="url-cloak-input" placeholder="Enter URL (e.g., https://google.com)" />
+                                </div>
+
+                  <div class="menu-buttons" style="margin-top: 25px;">
+
+                <button onclick="runUrlCloak()">Fetch & Apply URL Cloak</button>
+                </div>
+              </div>
+            
+              </div>
             </button>
             
-            </div>
-          </div>
         </div>
       </div>
       <div id="iframe-container">
@@ -1337,7 +1371,21 @@ loadQuotes();
           function toggleFullscreen() {
               if (!document.fullscreenElement) iframeEl.requestFullscreen().catch(err => console.error(err)); else document.exitFullscreen();
           }
+      // MODIFIED Helper function for the "Apply Custom Cloak" button
+      function runCustomCloak() {
+          const title = document.getElementById('custom-title-input').value;
+          const url = document.getElementById('custom-favicon-input').value;
 
+          if (!title && !url) {
+              showModal("Please enter a title or favicon URL!");
+              return;
+          }
+
+          applyCustomCloak(title, url);
+
+          // Keep the preset dropdown on "Custom"
+          document.getElementById('cloak-dropdown').value = "custom";
+      }
           // UPDATED FUNCTION: Open Iframe Content in New Window (with Cloak)
           function openIframeInNewWindow() {
               if (!iframeEl.src || iframeEl.src === 'about:blank') {
@@ -1543,14 +1591,23 @@ loadQuotes();
           const selected = dropdown.value;
           const customOptionsDiv = document.getElementById('custom-cloak-options');
 
+          const urlCloakOptionsDiv = document.getElementById('url-cloak-options');
+
           if (selected === "custom") {
               // Show the custom input fields
               customOptionsDiv.classList.add('visible');
+               urlCloakOptionsDiv.classList.remove('visible');
 
+          } else if (selected === "url-cloak") { // <<< ADD THIS BLOCK
+          
+             // Show the URL input fields
+             urlCloakOptionsDiv.classList.add('visible');
+             customOptionsDiv.classList.remove('visible'); // Hide standard custom inputs
           } else if (selected) {
               // A preset was chosen
               // Hide custom options
               customOptionsDiv.classList.remove('visible');
+             urlCloakOptionsDiv.classList.remove('visible'); // Hide standard custom inputs
 
               // Apply the preset cloak
               document.title = selected;
@@ -1568,11 +1625,13 @@ loadQuotes();
               // Clear custom inputs so the user knows the preset is active
               document.getElementById('custom-title-input').value = "";
               document.getElementById('custom-favicon-input').value = "";
-
+document.getElementById('url-cloak-input').value = ""; // Assuming this is your new input ID
           } else {
               // The "Select Preset..." (empty value) was chosen
               // Hide custom options
               customOptionsDiv.classList.remove('visible');
+                           urlCloakOptionsDiv.classList.remove('visible'); // Hide standard custom inputs
+
           }
       }
       // Function for custom inputs (no changes needed)
@@ -1592,21 +1651,23 @@ loadQuotes();
           }
       }
 
-      // MODIFIED Helper function for the "Apply Custom Cloak" button
-      function runCustomCloak() {
-          const title = document.getElementById('custom-title-input').value;
-          const url = document.getElementById('custom-favicon-input').value;
-
-          if (!title && !url) {
-              alert("Please enter a title or favicon URL!");
-              return;
-          }
-
-          applyCustomCloak(title, url);
-
-          // Keep the preset dropdown on "Custom"
-          document.getElementById('cloak-dropdown').value = "custom";
-      }
+// NEW/CORRECTED Helper Function: Uses Google's Favicon Service (Safe & Reliable)
+function getGoogleFaviconUrl(targetUrl) {
+    if (!targetUrl) return "";
+    
+    // Attempt to extract the domain name safely
+    let domain;
+    try {
+        const url = new URL(targetUrl.startsWith('http') ? targetUrl : `https://${targetUrl}`);
+        domain = url.hostname;
+    } catch (e) {
+        // Fallback for invalid URLs, though the service needs a domain
+        domain = targetUrl; 
+    }
+    
+    // This is the public, CORS-friendly Google service URL
+    return `https://www.google.com/s2/favicons?domain=${domain}&sz=32`;
+}
       // --- Loading Screen Logic ---
       function hideLoadingScreen() {
           const loadingScreen = document.getElementById('loading-screen');
@@ -1614,9 +1675,124 @@ loadQuotes();
               loadingScreen.classList.add('hidden');
           }
       }
+// Function to fetch and apply title and favicon from a given URL
+async function applyUrlCloak(targetUrl) {
+    if (!targetUrl) return;
 
+    // Use a proxy/search tool to safely fetch metadata for the target URL
+    // In a real browser environment, you'd use a CORS-enabled proxy or server-side logic
+    // We will use the search tool to simulate fetching the relevant data (title/favicon)
+    
+    try {
+        // Query 1: Get the website title
+        const titleResult = await google.search({ 
+            queries: [`site title of ${targetUrl}`] 
+        });
+        
+        // Query 2: Get a public favicon URL (often involves searching for the site's logo/icon)
+        const faviconResult = await google.search({
+            queries: [`favicon URL for ${targetUrl}`]
+        });
 
+        let newTitle = "Cloaked Site";
+        let newFaviconURL = "";
 
+        // Attempt to parse and clean the title
+        if (titleResult && titleResult.result) {
+            // Simple attempt to extract a clean title from the search snippet
+            // (This step is highly dependent on search result format and is illustrative)
+            newTitle = titleResult.result.split('\n')[0].trim(); 
+        }
+
+        // Attempt to parse and clean the favicon URL
+        if (faviconResult && faviconResult.result) {
+            // Search result often provides a direct link or a relevant image.
+            // For reliable results, a dedicated favicon API would be better, but we try a search link.
+            // We'll use the search snippet as a placeholder.
+            const urlMatch = faviconResult.result.match(/(https?:\/\/[^\s]+?\.ico|https?:\/\/[^\s]+?\.png)/i);
+            if (urlMatch) {
+                newFaviconURL = urlMatch[0];
+            }
+        }
+        
+        // --- Apply the fetched data using the existing function ---
+        applyCustomCloak(newTitle, newFaviconURL);
+
+        // Notify the user
+        await showModal(`Successfully applied cloak from URL: ${targetUrl}\nTitle: ${newTitle}\nFavicon URL: ${newFaviconURL || 'Not Found'}`);
+        
+    } catch (error) {
+        console.error("Error fetching URL cloak data:", error);
+        showModal("Failed to fetch data for URL cloaking. Please check the URL.");
+    }
+}
+/** Function to extract the <title> content from a string of HTML */
+function extractTitle(html) {
+    // Robust regex to find the title tag content
+    const match = html.match(/<title\b[^>]*>([^<]*?)<\/title>/i);
+    return match ? match[1].trim() : 'Title Not Found (Proxy Error)';
+}
+/** Helper to Fetch Title using CodeTabs Proxy (No longer uses external span) */
+async function fetchTitleWithProxy(urlInput) {
+    const encodedUrl = encodeURIComponent(urlInput);
+    const proxyUrl = `https://api.codetabs.com/v1/proxy/?quest=${encodedUrl}`;
+
+    try {
+        const response = await fetch(proxyUrl);
+        
+        if (!response.ok) {
+            throw new Error(`Proxy failed with status: ${response.status}`);
+        }
+        
+        const htmlContent = await response.text();
+        const title = extractTitle(htmlContent);
+
+        return title; 
+    } catch (error) {
+        console.error('Proxy Error:', error);
+        
+        const errorMsg = error.message.includes('Failed to fetch')
+                             ? 'Network/Firewall Blocked Proxy. Set Title Manually.'
+                             : `Error: Could not retrieve title.`;
+        
+        return errorMsg; 
+    }
+}
+async function runUrlCloak() { // MUST be async now
+    const urlInput = document.getElementById('url-cloak-input'); 
+    const url = urlInput ? urlInput.value.trim() : "";
+
+    // Clear manual title input if it exists (since we are fetching automatically now)
+    const manualTitleInput = document.getElementById('url-title-input');
+    if (manualTitleInput) manualTitleInput.value = ""; 
+
+    if (!url) {
+        showModal("Please enter a URL!");
+        return;
+    }
+
+    // --- Part 1: Favicon Retrieval (Always works) ---
+    const faviconUrl = getGoogleFaviconUrl(url); 
+    applyCustomCloak("Fetching...", faviconUrl); // Set temporary title
+
+    // --- Part 2: Title Retrieval (Using the proxy) ---
+    const fetchedTitle = await fetchTitleWithProxy(url);
+
+    // Check if the title fetching failed due to network blocks
+    if (fetchedTitle.includes('Blocked')) {
+        applyCustomCloak("Network Blocked Proxy", faviconUrl);
+        showModal(fetchedTitle + "\nPlease use the 'Custom' option instead and enter a title manually.");
+        return;
+    }
+
+    // --- Part 3: Final Application ---
+    applyCustomCloak(fetchedTitle, faviconUrl);
+
+    // Keep the dropdown on "URL Cloak"
+    document.getElementById('cloak-dropdown').value = "url-cloak";
+    
+    showModal(`URL Cloak Applied!\nTitle: ${fetchedTitle}\nFavicon fetched for: ${url} \n(If the title is messed up please go to custom and put the correct title, leave favicon url blank also.)`);
+}
       // --- REPLACE YOUR OLD LOADING SCREEN LOGIC WITH THIS ---
 
       // --- Loading Screen Logic ---
