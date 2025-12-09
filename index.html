@@ -664,16 +664,25 @@
                   background-color: var(--bg-color);
               }
 #chatbot-iframe {
+  /* Use fixed positioning to anchor to the viewport */
+  position: fixed; 
+  
+  /* Set the top offset equal to the tab-bar's height */
+  top: 100px; /* <--- Set this value to the exact height of your tab-bar! */
+  
+  /* Calculate the height to be 100% of the viewport (100vh) minus the top space */
+  height: calc(100vh - 100px); 
+  
+  /* Anchor to the sides to ensure full width */
+  left: 0;
+  right: 0;
   width: 100%;
-  height: 80%; /* Occupy full height of parent */
+  
+  /* General styling from your original code */
   border: none;
   box-sizing: border-box;
   background-color: var(--bg-color);
-  position: absolute; /* Position relative to nearest positioned ancestor */
-  bottom: 0; /* Align to the bottom */
-  top: auto; /* Allow top position to be determined by height and bottom */
 }
-
               /* --- Top Controls (Glassmorphism & Compact) --- */
               .top-controls {
                   position: fixed;
