@@ -663,6 +663,18 @@
                   box-sizing: border-box;
                   background-color: var(--bg-color);
               }
+              #chatbot-iframe {
+                  width: 100%;
+                  height: 100%;
+                  border: none;
+                  box-sizing: border-box;
+                  background-color: var(--bg-color);
+                  position: absolute;
+                  top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+              }
 
               /* --- Top Controls (Glassmorphism & Compact) --- */
               .top-controls {
@@ -932,12 +944,14 @@
           🏠 Home
         </button>
         <button id="tab-embed" onclick="showTab('embed', this)">
-          🔗 Embed Links
+          🎮 Games
         </button>
         <button id="tab-links" onclick="showTab('links', this)">
           🛠️ Utilities  
         </button>
-
+        <button id="tab-links" onclick="showTab('chatbots', this)">
+          🧠 Chatbots  
+        </button>
         <button id="tab-links" onclick="showTab('settings', this)">
           ⚙ Settings
         </button>
@@ -992,6 +1006,11 @@
           </div>
         </div>
 
+        <div id="chatbots-content" class="menu-tab-content">
+   <iframe id="chatbot-iframe"src="" frameborder="0"></iframe>
+
+        </div>
+
         <div id="links-content" class="menu-tab-content">
           <div class="menu-section-title">🌐 Miscellaneous</div>
           <div class="menu-buttons">
@@ -1005,11 +1024,7 @@
             >
             🎵 My playlist
             </button>
-            <button
-              onclick="showModal('If you are using AI and it isnt getting recent resources, use either chatgpt or compound for web search, ask it to search web for [keyword]. Also, Llama 4 scout can view images. '); showIframe('https://starlightgg.github.io/chatbot'); "
-            >
-            🤖 Chat Bot (fixed)
-            </button>
+
                         <button
               onclick="showIframe('https://starlightgg.github.io/diagnostic') "
             >
@@ -1324,23 +1339,51 @@ loadQuotes();
                   overlay.style.display = 'flex';
               }
           }
+let notfirstmessage = true;
+let footersetter = false;
 
-          // --- NEW TAB SWITCHING LOGIC ---
-          function showTab(tabId, clickedButton) {
-              // 1. Hide all tab content sections
-              document.querySelectorAll('.menu-tab-content').forEach(content => {
-                  content.classList.remove('active');
-              });
+// --- NEW TAB SWITCHING LOGIC ---
+function showTab(tabId, clickedButton) {
+    // 1. Hide all tab content sections
+    document.querySelectorAll('.menu-tab-content').forEach(content => {
+        content.classList.remove('active');
+    });
 
-              // 2. Deactivate all tab buttons
-              document.querySelectorAll('#tab-bar button').forEach(button => {
-                  button.classList.remove('active-tab');
-              });
+    // 2. Deactivate all tab buttons
+    document.querySelectorAll('#tab-bar button').forEach(button => {
+        button.classList.remove('active-tab');
+    });
 
-              // 3. Show the target tab content and activate the button
-              document.getElementById(tabId + '-content').classList.add('active');
-              clickedButton.classList.add('active-tab');
-          }
+    // 3. Show the target tab content and activate the button
+    document.getElementById(tabId + '-content').classList.add('active');
+    clickedButton.classList.add('active-tab');
+const chatbotIframe = document.getElementById('chatbot-iframe');
+    // **4. Execute something specific if the selected tab is 'chatbot'**
+    
+    if (tabId === 'chatbots') {
+      showModal("LOADING");
+      if(footersetter == false){
+      footersetter = true;
+
+                   toggleFooter();
+      }
+        // --- ADD YOUR CHATBOT-SPECIFIC CODE HERE ---
+chatbotIframe.src = "https://starlightgg.github.io/chatbot";
+
+if(notfirstmessage){
+  notfirstmessage = false;
+  showModal('If you are using AI and it isnt getting recent resources, use either chatgpt or compound for web search, ask it to search web for [keyword]. Also, Llama 4 scout can view images. ');
+}
+}else{
+if (footersetter == true) {
+  toggleFooter();
+  footersetter = false;
+
+    }
+      chatbotIframe.src = "";
+
+    }
+}
       // --- JAVASCRIPT UPDATES ---
 
       function updateTime() {
