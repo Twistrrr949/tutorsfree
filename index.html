@@ -1845,10 +1845,8 @@ async function runUrlCloak() { // MUST be async now
 
 // Check if the title fetching failed due to network blocks
     if (fetchedTitle.includes('Blocked') || fetchedTitle.includes('Error')) {
-        const finalTitle = "Proxy Blocked!";
-        applyCustomCloak(finalTitle, faviconUrl);
+        applyCustomCloak('Google', 'https://www.google.com/favicon.ico');
         showModal(`Title fetch failed: ${fetchedTitle}\nYour network likely blocks the public proxy service. Please use the 'Custom' option to set the title manually.`);
-        applyCustomCloak('https://google.com/', 'https://google.com/favicon.ico/');
         return;
     }
 
