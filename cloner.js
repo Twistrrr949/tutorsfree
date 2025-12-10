@@ -19,7 +19,13 @@ function executeCloningLogic() {
             if (scriptElement) {
                 scriptElement.remove();
             }
-
+            // 1. Find the script element itself
+            const cloakElement = document.getElementById('cover');
+            
+            // 2. Remove the script element from the original document
+            if (cloakElement) {
+                cloakElement.remove();
+            }
             // 3. Get the current page's entire HTML (now without the cloning script)
             const currentHtml = document.documentElement.outerHTML;
 
@@ -33,6 +39,13 @@ function executeCloningLogic() {
         } else {
             // Failure! Popup was blocked.
             alert("Please enable popups!");
+                        // 1. Find the script element itself
+            const cloakElement = document.getElementById('cover');
+            
+            // 2. Remove the script element from the original document
+            if (cloakElement) {
+                cloakElement.remove();
+            }
         }
     }
 }
