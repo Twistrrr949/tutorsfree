@@ -15,6 +15,21 @@
       rel="stylesheet"
     />
     <style>
+  
+        .online-counter {
+          margin-top: 30px;
+            padding: 10px 15px;
+    background-color: var(--secondary-bg);
+    color: var(--text-color);
+            border-radius: 5px;
+            font-family: Arial, sans-serif;
+            font-size: 1.1em;
+            display: inline-block;
+                outline: 3px solid #a5b4fc; 
+
+        }
+
+
 /* Floating Info Button (?) */
 #info-btn {
     position: fixed;
@@ -36,6 +51,7 @@
     font-weight: 700;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
     outline: 3px solid #a5b4fc; 
+    
 }
 #info-btn:hover {
     background-color: #97a1de;
@@ -1021,7 +1037,12 @@
             >
               🚀 Surf Web Freely (89% done)
             </button>
+
           </div>
+        <div class="online-counter">
+          <span id="online-users-label">Active Users: </span>
+          <span id="online-users-count">Loading...</span>
+        </div>
         </div>
 
         <div id="embed-content" class="menu-tab-content">
@@ -1096,7 +1117,7 @@
             📝 View full terms
             </button>
                          <button
-              onclick=" window.open('event.html'); "
+              onclick="showIframe('https://starlightgg.github.io/events') "
             >
             🗓 Events/releases planned
             </button>
@@ -2349,5 +2370,62 @@ document.addEventListener('DOMContentLoaded', () => {
 }); // End of DOMContentLoaded
 </script>
 
+
+    <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.7.1.2.min.js"></script> 
+
+    <script type="text/javascript">
+        // 🚨 IMPORTANT: REPLACE THESE WITH YOUR OWN KEYS FROM STEP 1 🚨
+        const YOUR_PUB_KEY = 'pub-c-4f63101b-920b-4b8e-a733-88a65d0ba4a0'; 
+        const YOUR_SUB_KEY = 'sub-c-f4059211-b1e0-453b-b4e1-0e103b63253d'; 
+
+        // Generates a unique ID for each visitor
+        const randomString = () => Math.random().toString(36).slice(2);
+
+        // Initialize PubNub
+        const pubnub = new PubNub({
+            publishKey: YOUR_PUB_KEY,
+            subscribeKey: YOUR_SUB_KEY,
+            uuid: randomString() // Assigns a unique ID to this browser session
+        });
+
+        // The name of the channel (your page) we are tracking presence on
+        const CHANNEL_NAME = 'counter'; 
+
+        // 2. Add a listener to handle presence events (join, leave, timeout)
+        pubnub.addListener({
+            presence: (presenceEvent) => {
+                // The 'occupancy' property gives the current number of online users
+                const count = presenceEvent.occupancy;
+                
+                // Update the counter element on the page
+                const counterElement = document.getElementById('online-users-count');
+                
+                if (counterElement) {
+                    // Check if the count is valid, otherwise set a minimum of 1 (you)
+                    counterElement.innerHTML = count > 0 ? count : 1; 
+                }
+            }
+        });
+
+        // 3. Subscribe to the channel and turn on Presence tracking
+        pubnub.subscribe({
+            channels: [CHANNEL_NAME],
+            withPresence: true // This is crucial for tracking online/offline status
+        });
+        
+        // 4. On page load, get the current count immediately (optional but good practice)
+        pubnub.hereNow({
+            channels: [CHANNEL_NAME]
+        }, function (status, response) {
+            if (response && response.channels && response.channels[CHANNEL_NAME]) {
+                const initialCount = response.channels[CHANNEL_NAME].occupancy;
+                const counterElement = document.getElementById('online-users-count');
+                 if (counterElement) {
+                    counterElement.innerHTML = initialCount > 0 ? initialCount : 1;
+                }
+            }
+        });
+
+    </script>
   </body>
 </html> 
