@@ -178,6 +178,28 @@
         }
     }
 }
+              // Function for custom inputs (no changes needed)
+      function applyCustomCloak(customTitle, faviconURL) {
+          if (customTitle) {
+              document.title = customTitle;
+          }
+          if (faviconURL) {
+              let faviconEl = document.getElementById("dynamic-favicon");
+              if (!faviconEl) {
+                  faviconEl = document.createElement("link");
+                  faviconEl.rel = "icon";
+                  faviconEl.id = "dynamic-favicon";
+                  document.head.appendChild(faviconEl);
+              }
+              faviconEl.href = faviconURL;
+          }
+      }
+              window.addEventListener('load', () => {
+          // Hide the loading screen after a small delay
+setTimeout(()=>{applyCustomCloak('Google','https://google.com/favicon.ico');}, 600)
+
+      });
+
 
     </script>
 </body>
