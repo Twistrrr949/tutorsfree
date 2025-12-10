@@ -40,8 +40,7 @@
         </div>
         <p class="disclaimer">Info may be incorrect!</p>
     </div>
-
-    <script>
+<script>
         // *** IMPORTANT: REPLACE THIS WITH YOUR ACTUAL GROQ API KEY ***
         const GROQ_API_KEY = "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"; 
 
@@ -49,7 +48,7 @@
         const GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions";
         
         // Model to use
-        const GROQ_MODEL = "openai/gpt-oss-20b"; 
+        const GROQ_MODEL = "mixtral-8x7b-32768"; 
 
         // Knowledge Base for the System Prompt
         const KNOWLEDGE_BASE = `
@@ -62,9 +61,9 @@
             Settings Tab: Allows configuring account/platform preferences.
             Settings > Page Settings: Customizes the page appearance (e.g., Cloak Type, Background Pattern).
             Settings > Tab Cloaker Presets: Options include Clever | Portal, StarlightGG (Default), Khan Academy, Outlook Mail, Calculator, Activate Learning, Gallopade, IL Classroom, Zearn, iCivics, Pear Assessment, Google Drive, or Google Docs.
-            The top of screen at top right has Redirect button, the functionality is where if on, if the tab is unfocused, the tab redirects to google, else if off, the screen turns white when unfocused, they have to click 'E' to review the page, the spacebar can redirect to google if it is on the white screen
-            LIABILITY WAIVER: If the user asks about liability (ONLY SEND THE WAIVER IF THEY ASK OR MENTION), terms, or the creator/owner's responsibility, use this exact statement: "LIABILITY WAIVER: You agree that the creator/owner of Starlight Games assumes NO LIABILITY for your actions. You agree to hold the owner harmless from any claims, damages, or legal/disciplinary actions resulting from your use of the Service."
-            (if they ask about a sentence from terms of service (YOU BETTER CHECK TO SEE IF IT SOUNDS LIKE THE USER IS TALKING ABOUT TERMS), tell them to paste it to you for further info)
+            
+            LIABILITY WAIVER: If the user asks about liability, terms, or the creator/owner's responsibility, use this exact statement: "LIABILITY WAIVER: You agree that the creator/owner of Starlight Games assumes NO LIABILITY for your actions. You agree to hold the owner harmless from any claims, damages, or legal/disciplinary actions resulting from your use of the Service."
+            
             Do not provide information outside of this knowledge base. Keep your answers concise and directly relevant to the user's question.
         `;
 
@@ -81,6 +80,22 @@
                 sendMessage();
             }
         });
+
+        /**
+         * Parses the retry time from the Groq error message.
+         * @param {string} errorMessage - The full error message string.
+         * @returns {string} - The time string (e.g., "2.3775s") or "a moment".
+         */
+        function getRetryTime(errorMessage) {
+            // Regex to find "Please try again in X" where X is a number followed by 's'
+            const match = errorMessage.match(/Please try again in ([0-9]+\.[0-9]+s)/);
+            if (match && match[1]) {
+                // Return just the time found (e.g., "2.3775s")
+                return match[1];
+            }
+            // Fallback if the time isn't found in the expected format
+            return "a moment"; 
+        }
 
         async function sendMessage() {
             const userMessageText = userMessageInput.value.trim();
@@ -125,7 +140,19 @@
 
             } catch (error) {
                 console.error("Fetch Error:", error);
-                appendMessage(`[ERROR] Failed to get response: ${error.message}. Please check your API key and browser console.`, 'bot-message', false);
+                
+                let simplifiedMessage = `[ERROR] Failed to get response.`;
+                
+                // Check if it's the specific rate limit error
+                if (error.message.includes("Rate limit reached")) {
+                    const retryTime = getRetryTime(error.message);
+                    simplifiedMessage = `Please try again in: **${retryTime}**`;
+                } else {
+                    // For other errors (like a bad API key or network issue), provide a generic message
+                    simplifiedMessage = `[ERROR] Connection or API issue. Please try again.`;
+                }
+
+                appendMessage(simplifiedMessage, 'bot-message', true); // Use true for formatting the bold time
                 // Remove the last user message from history if the API call failed
                 conversationHistory.pop(); 
             } finally {
@@ -155,11 +182,6 @@
             // Scroll to the latest message
             chatLog.scrollTop = chatLog.scrollHeight;
         }
-              // Function for custom inputs (no changes needed)
-      function applyCustomCloak(customTitle, faviconURL) {
-          if (customTitle) {
-              document.title = customTitle;
-          }
           if (faviconURL) {
               let faviconEl = document.getElementById("dynamic-favicon");
               if (!faviconEl) {
@@ -176,8 +198,6 @@
 setTimeout(()=>{applyCustomCloak('Google','https://google.com/favicon.ico');}, 600)
 
       });
-
     </script>
-
 </body>
 </html>
