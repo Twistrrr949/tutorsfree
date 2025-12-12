@@ -229,6 +229,7 @@ body, html {
     line-height: 1.5; 
     max-width: 80%; 
     font-size: 1em;
+    margin: 0 auto; /* Centers the element */
 }
 
 .user-message { 
@@ -237,6 +238,8 @@ body, html {
     margin-left: auto; 
     border-bottom-right-radius: 4px; 
     box-shadow: 2px 2px 4px rgba(0, 123, 255, 0.4), -2px -2px 4px rgba(0, 123, 255, 0.2); 
+        overflow-x: auto;
+
 }
 .ai-message { 
     background-color: #f0f5fa; /* Lighter shade of background for AI */
@@ -244,6 +247,8 @@ body, html {
     margin-right: auto; 
     border-bottom-left-radius: 4px; 
     box-shadow: 2px 2px 4px var(--shadow-dark), -2px -2px 4px var(--shadow-light); 
+        overflow-x: auto;
+
 }
 
 /* --- Input Area --- */
