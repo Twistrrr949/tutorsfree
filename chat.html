@@ -4,46 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Google</title>
-    <script id="cloning-script" src="cloner.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+        <script id="cloning-script" src="cloner.js"></script>
 
     <style>
-        /* ... (All your existing CSS remains here, unchanged) ... */
         :root {
             --primary-color: #4c68ff;
-            --secondary-color: #008069; 
-            --accent-color: #f7941d; 
             --text-color: #333333;
             --bg-color: #f8f8f8;
+            --font-stack: 'Inter', sans-serif;
         }
         
-        html, body {
-            margin: 0;
-            padding: 0;
-            height: 100%; 
-            width: 100%;
-        }
-
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: var(--font-stack);
             background-color: var(--bg-color);
             color: var(--text-color);
+            margin: 0;
+            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh; 
-        }
-        
-        :fullscreen .main-app-container,
-        :-webkit-full-screen .main-app-container,
-        :-moz-full-screen .main-app-container,
-        :-ms-fullscreen .main-app-container {
-            width: 100vw;
-            max-width: none;
             height: 100vh;
-            border-radius: 0;
-            box-shadow: none;
-            padding: 20px;
         }
 
         .main-app-container {
@@ -63,31 +43,37 @@
             border-bottom: 2px solid #eee;
             padding-bottom: 10px;
             margin-top: 0;
-            margin-bottom: 15px;
-            font-size: 1.8em;
+            margin-bottom: 20px;
         }
 
         .chat-embed-area {
-            flex-grow: 1; 
+            flex-grow: 1; /* Makes this area fill the space */
             border: 1px solid #ddd;
             border-radius: 8px;
             overflow: hidden; 
         }
         
-        /* Removed unnecessary #rt-d4dc4ea0e6ecd094ad1bfd1cbb0bfcf5 CSS */
+        /* Ensures the iframe takes up all the space within its container */
+        .chat-embed-area iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* --- BUTTON STYLES --- */
         
+        /* Fixed: Styling for the container holding the buttons */
         .footer-actions {
             margin-top: 15px;
             padding-top: 10px;
             border-top: 1px solid #eee;
             text-align: right;
-            display: flex;
-            justify-content: flex-end; 
-            gap: 10px; 
         }
+
+        /* Base button style */
         .nav-button {
-            padding: 10px 18px; 
-            font-size: 1em;
+            padding: 8px 15px;
+            font-size: 0.9em;
             font-weight: 600;
             color: white;
             background-color: var(--primary-color);
@@ -97,125 +83,123 @@
             transition: background-color 0.3s ease;
             text-decoration: none; 
             display: inline-block;
+            margin-left: 10px; 
         }
-        .nav-button:hover { filter: brightness(1.1); }
-        .back-button { background-color: var(--primary-color); }
-        .back-button:hover { background-color: #3a50d8; }
-        .refresh-button { background-color: var(--secondary-color); }
-        .refresh-button:hover { background-color: #006b5a; }
-        .fullscreen-button { background-color: var(--accent-color); }
-        .fullscreen-button:hover { background-color: #e0851a; }
+
+        /* Back to App button specific style */
+        .back-button {
+            padding: 10px 20px; /* Slightly larger padding for primary action */
+            font-size: 1em;
+            font-weight: bold;
+            background-color: var(--primary-color);
+        }
+        .back-button:hover {
+            background-color: #3a50d8;
+        }
+
+        /* Refresh button specific style */
+        .refresh-button {
+            background-color: #008069; /* Green color */
+            padding: 10px 15px;
+        }
+        .refresh-button:hover {
+            background-color: #006b5a;
+        }
+/* Specific style for the Fullscreen button */
+.fullscreen-button {
+    background-color: #f7941d; /* A distinctive orange/yellow color */
+}
+.fullscreen-button:hover {
+    background-color: #e0851a;
+}
     </style>
 </head>
 <body>
 
     <div class="main-app-container">
         <h1>Starlight Games | Community Chat</h1>
-        <p>For the best experience, we recommend using the fullscreen option, especially on Chromebooks.</p>
-        
-        <div class="chat-embed-area" id="chatEmbedArea">
-            <iframe id="chatIframe" 
-                    src="./chat_embed.html" 
-                    style="width: 100%; height: 100%; border: none;">
-            </iframe>
+        <p>For the best experience, we recommend using the fullscreen option, especially on Chromebooks. (use appropriate names)</p>
+        <div class="chat-embed-area">
+  <iframe id= "chatFrame" src="https://service70.rumbletalk.net/AFeSblMD/" width="100%" height="100%"></iframe>            
         </div>
         
         <div class="footer-actions">
             <button class="nav-button back-button" onclick="redirectToApp()">
                 ← Back to App
             </button>
+            
             <button class="nav-button refresh-button" onclick="refreshChat()">
-                ↻ Refresh Chat
+                ↻ Refresh Chat (Spam if blocked!)
             </button>
             <button class="nav-button fullscreen-button" onclick="toggleFullscreen()">
-                ⛶ Fullscreen Document
+               ⛶ Fullscreen
             </button>
         </div>
     </div>
     
     <script>
         // --- Core Functions ---
-        const CHAT_WIDGET_ID = 'rt-d4dc4ea0e6ecd094ad1bfd1cbb0bfcf5';
-        const CHAT_AREA_ID = 'chatEmbedArea';
-        const RUMBLETALK_SRC = 'https://rumbletalk.com/client/?AFeSblMD'; // Not used, but kept for context
-
-        function redirectToApp() {
-            window.location.href = '/'; 
-        }
+    function redirectToApp() {
+        // IMPORTANT: Change the URL below to your application's actual link.
+        window.location.href = '/'; 
+    }
         
-        /**
-         * The non-reload fix: Reloads the IFRAME content only.
-         */
         function refreshChat() {
-            console.log("Forcing Iframe content reload for clean reset.");
-            const iframe = document.getElementById('chatIframe');
-            // Setting src = src forces the browser to reload the iframe content
-            iframe.src = iframe.src; 
+            const iframe = document.getElementById('chatFrame');
+            if (iframe) {
+                // Forces the iframe to reload its content by resetting the source URL.
+                iframe.src = iframe.src; 
+            }
         }
-
         function toggleFullscreen() {
-            const element = document.documentElement; 
-            const isFullscreen = document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement || document.msFullscreenElement;
+    const chatFrame = document.getElementById('chatFrame');
 
-            if (!isFullscreen) {
-                if (element.requestFullscreen) {
-                    element.requestFullscreen();
-                } else if (element.mozRequestFullScreen) {
-                    element.mozRequestFullScreen();
-                } else if (element.webkitRequestFullscreen) {
-                    element.webkitRequestFullscreen();
-                } else if (element.msRequestFullscreen) {
-                    element.msRequestFullscreen();
-                }
-                
-                document.addEventListener('fullscreenchange', handleFullscreenChange);
+    if (!document.fullscreenElement) {
+        // Go fullscreen
+        if (chatFrame.requestFullscreen) {
+            chatFrame.requestFullscreen();
+        } else if (chatFrame.mozRequestFullScreen) { /* Firefox */
+            chatFrame.mozRequestFullScreen();
+        } else if (chatFrame.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+            chatFrame.webkitRequestFullscreen();
+        } else if (chatFrame.msRequestFullscreen) { /* IE/Edge */
+            chatFrame.msRequestFullscreen();
+        }
+    } else {
+        // Exit fullscreen
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.mozCancelFullScreen) { /* Firefox */
+            document.mozCancelFullScreen();
+        } else if (document.webkitExitFullscreen) { /* Chrome, Safari and Opera */
+            document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) { /* IE/Edge */
+            document.msExitFullscreen();
+        }
+    }
+}
+              // Function for custom inputs (no changes needed)
+      function applyCustomCloak(customTitle, faviconURL) {
+          if (customTitle) {
+              document.title = customTitle;
+          }
+          if (faviconURL) {
+              let faviconEl = document.getElementById("dynamic-favicon");
+              if (!faviconEl) {
+                  faviconEl = document.createElement("link");
+                  faviconEl.rel = "icon";
+                  faviconEl.id = "dynamic-favicon";
+                  document.head.appendChild(faviconEl);
+              }
+              faviconEl.href = faviconURL;
+          }
+      }
+              window.addEventListener('load', () => {
+          // Hide the loading screen after a small delay
+setTimeout(()=>{applyCustomCloak('Google','https://google.com/favicon.ico');}, 600)
 
-            } else {
-                if (document.exitFullscreen) {
-                    document.exitFullscreen();
-                } else if (document.mozCancelFullScreen) {
-                    document.mozCancelFullScreen();
-                } else if (document.webkitExitFullscreen) {
-                    document.webkitExitFullscreen();
-                } else if (document.msExitFullscreen) {
-                    document.msExitFullscreen();
-                }
-            }
-                            document.addEventListener('fullscreenchange', handleFullscreenChange);
+      });
 
-        }
-        
-        function handleFullscreenChange() {
-            document.removeEventListener('fullscreenchange', handleFullscreenChange);
-            // Give the browser time to render the new full-screen size
-            setTimeout(() => {
-                refreshChat();
-            }, 50); 
-        }
-        
-        // Function for custom inputs (Cloaking)
-        function applyCustomCloak(customTitle, faviconURL) {
-            if (customTitle) {
-                document.title = customTitle;
-            }
-            if (faviconURL) {
-                let faviconEl = document.getElementById("dynamic-favicon");
-                if (!faviconEl) {
-                    faviconEl = document.createElement("link");
-                    faviconEl.rel = "icon";
-                    faviconEl.id = "dynamic-favicon";
-                    document.head.appendChild(faviconEl);
-                }
-                faviconEl.href = faviconURL;
-            }
-        }
-        
-        // Apply the cloak after a small delay. No need to call refreshChat.
-        window.addEventListener('load', () => {
-            setTimeout(()=>{
-                applyCustomCloak('Google','https://google.com/favicon.ico');
-            }, 600);
-        });
 
     </script>
 </body>
