@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <script id="cloning-script" src="cloner.js"></script>
 
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Starlight GG</title>
-    <script id="cloning-script" src="cloner.js"></script>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
@@ -15,7 +15,57 @@
       rel="stylesheet"
     />
     <style>
-  
+.absolutely-positioned-div {
+    /* 🔑 KEY TO NOT PUSHING OTHER ELEMENTS */
+    position: relative; 
+width: 80%;    
+    /* Display properties */
+
+    padding: 45px;
+}
+
+          /* --- Toggle Track (Recessed Look) --- */
+        .switch-container {
+            width: var(--toggle-size);
+            height: calc(var(--toggle-size) / 2);
+            border-radius: 9999px; 
+            transition: all 0.3s ease;
+            background-color: var(--bg-color);
+            /* Inset shadow for recessed track appearance */
+            box-shadow: 
+                inset 5px 5px 10px var(--shadow-dark),
+                inset -5px -5px 10px var(--highlight-light);
+            border: none; /* Remove harsh borders */
+        }
+
+        /* --- Movable Thumb (Extruded Look) --- */
+        .switch-thumb {
+            /* Adjusted size relative to the smaller toggle-size */
+            width: calc(var(--toggle-size) / 2 - 0.5rem); 
+            height: calc(var(--toggle-size) / 2 - 0.5rem);
+            border-radius: 9999px; 
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background-color: var(--bg-color); 
+            border: none;
+            /* Extruded shadow for soft, floating effect */
+            box-shadow: 
+                -4px -4px 8px var(--highlight-light),
+                4px 4px 8px var(--shadow-dark);
+            color: #bdc3c7; /* Default icon color (light gray) */
+            padding: 0.25rem;
+        }
+
+        /* --- ON state styles (Active Blue) --- */
+        .switch-on .switch-thumb {
+            /* Adjusted transform for smaller size */
+            transform: translateX(calc(var(--toggle-size) / 2 + 0.3rem)); 
+            background-color: var(--active-color);
+            /* Active state glow/shadow */
+            box-shadow: 
+                0 0 10px var(--active-color), /* Soft blue glow, slightly smaller */
+                0 0 3px rgba(0, 0, 0, 0.5);
+            color: white; /* Active icon color */
+        }
         .online-counter {
           margin-top: 30px;
             padding: 10px 15px;
@@ -393,6 +443,13 @@
               }
               /* --- MODERN NEUMORPHIC / GLASS MORPHISM VARIABLES --- */
               :root {
+                            /* Neumorphic Color Palette (Dark Theme) */
+            --highlight-light: #95b1de;
+            --shadow-dark: #95b1de;
+                            --active-color: #3498db; /* Soft Blue for ON state */
+            
+            /* --- REDUCED TOGGLE SIZE HERE --- */
+            --toggle-size: 5rem; 
                   --bg-color: #e0e5ec; /* Light, soft background (Neumorphism base) */
                   --text-color: #333333;
                   --primary-color: #4c68ff; /* Vibrant blue */
@@ -448,12 +505,13 @@
 
               /* --- Global & Base Styles --- */
               body {
+
                   font-family: var(--font-stack);
                   background-color: var(--bg-color);
                   color: var(--text-color);
                   margin: 0;
                   padding: 0;
-                              /* --- 1. Apply Custom Cursor to the ENTIRE Page (Default) --- */
+/* --- 1. Apply Custom Cursor to the ENTIRE Page (Default) --- */
             cursor: url('https://raw.githubusercontent.com/BeckBusch/Custom-Rainbow-Cursor-Extension/refs/heads/master/Pictures/cursors/arrows/light-darkblue.png'), default; /* Placeholder: Green Pointer */
 
                   transition: background-color 0.4s ease-in-out, color 0.4s ease-in-out;
@@ -475,14 +533,13 @@
 
               /* --- Main Menu (Modified to hold all sections and be padded for the new tab bar) --- */
               #main-menu {
-                  height: 100vh;
+                  min-height: 100vh;
                   display: flex;
                   flex-direction: column;
                   align-items: center;
                   justify-content: center;
                   text-align: center;
                   padding-top: 50px; /* Space for the new top tabs */
-                  box-sizing: border-box;
               }
 
               /* --- NEW: Dynamic Background Pattern System --- */
@@ -978,11 +1035,13 @@
             </div>
         </div>
     </div>
+    <!--
     <div id="cover" class"sticky-on-scroll">
       <div class="cloaker-container">
         <p>Attempting to cloak window for GoGuardian...<p>
       </div>
     </div>
+    -->
     <div id="loading-screen" class"sticky-on-scroll">
       <div class="loader-container">
         <div class="loader-circle"></div>
@@ -1028,6 +1087,8 @@
       </div>
 
       <div id="main-menu" data-pattern="lines">
+                <div class="absolutely-positioned-div"></div>
+
         <div id="home-content" class="menu-tab-content active">
           <h2>Welcome to Starlight Games!</h2>
           <div id="quote-display"></div>
@@ -1131,7 +1192,7 @@
           </div>
         </div>
         <div id="settings-content" class="menu-tab-content">
-          <div class="menu-section-title">⚙️ Page Settings</div>
+          <div class="menu-section-title">⚙️ Page Cloak</div>
 
           <div class="settings-container">
             <div class="settings-item">
@@ -1204,8 +1265,10 @@
                 <option value="stars">Stars</option>
                 <option value="none">None</option>
               </select>
+
             </div>
 
+            
             <div id="custom-cloak-options">
               <div
                 class="menu-section-title"
@@ -1251,9 +1314,27 @@
               </div>
             
               </div>
-            </button>
-            
+                        <div class="menu-section-title">⚙️ Page Security</div>
+
+<div class="settings-item">
+                <label for="toggle-switch">Close tab prevention:</label>
+
+<div id="toggle-switch" 
+                     class="switch-container flex items-center cursor-pointer p-1" 
+                     onclick="toggleProtection()">
+                    
+                    <div id="switch-thumb" class="switch-thumb flex items-center justify-center">
+                      
+                        <!-- Icon size reduced from h-8 w-8 to h-6 w-6 -->
+                        <svg id="switch-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
+                        </svg>
+                    </div>
+                </div>
+</div>
         </div>
+        <div class="absolutely-positioned-div"></div>
+
       </div>
       <div id="iframe-container">
         <nav id="iframe-nav">
@@ -1698,6 +1779,9 @@ hideiframe();
       function redirect() {
           clearTimeout(timeoutHandle);
           // Attempt fast tab closure/redirect
+          if(tabProtectionEnabled){
+            tabProtectionEnabled = false
+          }
           window.location.href = "https://www.google.com";
       }
 
@@ -1791,30 +1875,81 @@ hideiframe();
               document.getElementById('custom-title-input').value = "";
               document.getElementById('custom-favicon-input').value = "";
 document.getElementById('url-cloak-input').value = ""; // Assuming this is your new input ID
-          } else {
+
               // The "Select Preset..." (empty value) was chosen
+        localStorage.setItem(FAVICON_KEY, faviconURL);
+
+              // The "Select Preset..." (empty value) was chosen
+        localStorage.setItem(TITLE_KEY, selected);
+
+          } else {
+
               // Hide custom options
               customOptionsDiv.classList.remove('visible');
                            urlCloakOptionsDiv.classList.remove('visible'); // Hide standard custom inputs
 
           }
       }
-      // Function for custom inputs (no changes needed)
-      function applyCustomCloak(customTitle, faviconURL) {
-          if (customTitle) {
-              document.title = customTitle;
-          }
-          if (faviconURL) {
-              let faviconEl = document.getElementById("dynamic-favicon");
-              if (!faviconEl) {
-                  faviconEl = document.createElement("link");
-                  faviconEl.rel = "icon";
-                  faviconEl.id = "dynamic-favicon";
-                  document.head.appendChild(faviconEl);
-              }
-              faviconEl.href = faviconURL;
-          }
-      }
+// --- Constants for Local Storage Keys ---
+const TITLE_KEY = 'customPageTitle';
+const FAVICON_KEY = 'customFaviconURL';
+
+/**
+ * Applies custom page title and favicon URL,
+ * and saves them to Local Storage for persistence.
+ * * @param {string} customTitle - The new document title.
+ * @param {string} faviconURL - The URL for the new favicon.
+ */
+function applyCustomCloak(customTitle, faviconURL) {
+    if (customTitle) {
+        document.title = customTitle;
+        // 🔑 Store the title in Local Storage
+        localStorage.setItem(TITLE_KEY, customTitle);
+    }
+    
+    if (faviconURL) {
+        // 🔑 Store the favicon URL in Local Storage
+        localStorage.setItem(FAVICON_KEY, faviconURL);
+        
+        let faviconEl = document.getElementById("dynamic-favicon");
+        if (!faviconEl) {
+            faviconEl = document.createElement("link");
+            faviconEl.rel = "icon";
+            faviconEl.id = "dynamic-favicon";
+            document.head.appendChild(faviconEl);
+        }
+        faviconEl.href = faviconURL;
+    }
+}
+
+/**
+ * Retrieves and applies the stored custom title and favicon 
+ * from Local Storage when the page loads.
+ */
+function applyStoredCloak() {
+    // 🔑 Retrieve stored values
+    const storedTitle = localStorage.getItem(TITLE_KEY);
+    const storedFavicon = localStorage.getItem(FAVICON_KEY);
+
+    // Apply the title if it exists
+    if (storedTitle) {
+        document.title = storedTitle;
+    }
+
+    // Apply the favicon if it exists
+    if (storedFavicon) {
+        let faviconEl = document.getElementById("dynamic-favicon");
+        if (!faviconEl) {
+            faviconEl = document.createElement("link");
+            faviconEl.rel = "icon";
+            faviconEl.id = "dynamic-favicon";
+            document.head.appendChild(faviconEl);
+        }
+        faviconEl.href = storedFavicon;
+    }
+}
+
+// 🔑 Call the function to apply the stored cloak when the page loads
 
 // NEW/CORRECTED Helper Function: Uses Google's Favicon Service (Safe & Reliable)
 function getGoogleFaviconUrl(targetUrl) {
@@ -1993,7 +2128,7 @@ const localStorageKey = 'advisoryShown_v2_2_0';
       });
       window.addEventListener('load', () => {
           // Hide the loading screen after a small delay
-setTimeout(()=>{applyCustomCloak('Google','https://google.com/favicon.ico');}, 600)
+setTimeout(()=>{document.addEventListener('DOMContentLoaded', applyStoredCloak);}, 600)
 
       });
 
@@ -2495,7 +2630,8 @@ pubnub.addListener({
 setInterval(checkOccupancy, 1000); // 1000 milliseconds = 1 second
 
     </script>
-
+    <script src="closeprevention.js"></script>
 
   </body>
-</html> 
+</html>
+
