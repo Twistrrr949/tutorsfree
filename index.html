@@ -1033,7 +1033,7 @@
           <div id="quote-display"></div>
           <div class="menu-buttons" style="margin-top: 30px;">
             <button
-                onclick="showModal('You probably shit your pants just now since it works.');showModal('When you are trying to google something, use start.duckduckgo.com as an alternative to google since google search is broken. When you are using duckduckgo, use the textbox in the duckduckgo site'); showModal('List of services that dont work: (may not list all, please contact owner if you find one):\nNow.gg\nGoogle (any services that relate to google)\nRoblox\nYoutube\nChatGPT'); showModal('Since I paid for this surf web domain, please do not use too much websites as I am paying for this');showIframe('https://auth.teaching.za.com/indev'); "
+                onclick="surfweb()"
             >
               🚀 Surf Web Freely (DONE!!!)
             </button>
@@ -1468,10 +1468,12 @@ const chatbotIframe = document.getElementById('chatbot-iframe');
         // --- ADD YOUR CHATBOT-SPECIFIC CODE HERE ---
 chatbotIframe.src = "https://starlightgg.github.io/chatbot";
 chatbotIframe.style.display='block';
-if(notfirstmessage){
-  notfirstmessage = false;
+      const localStorageKey2 = 'chatbotadvisoryShown_v2_2_0';        
+
+if (localStorage.getItem(localStorageKey2) === null) {
   showModal('If you are using AI and it isnt getting recent resources, use either chatgpt or compound for web search, ask it to search web for [keyword]. Also, Llama 4 scout can view images. ');
         showModal("Please always wait patiently when loading chatbot");
+        localStorage.setItem(localStorageKey2, 'true');
 
 }
 }else{
@@ -1539,6 +1541,15 @@ hideiframe();
 
           // Keep the preset dropdown on "Custom"
           document.getElementById('cloak-dropdown').value = "custom";
+      }
+      function surfweb() {
+        const localStorageKey3 = 'surfwebadvisoryShown_v2_2_0';
+        if (localStorage.getItem(localStorageKey3) === null) {
+        showModal('You probably shit your pants just now since it works.');showModal('When you are trying to google something, use start.duckduckgo.com as an alternative to google since google search is broken. When you are using duckduckgo, use the textbox in the duckduckgo site'); showModal('List of services that dont work: (may not list all, please contact owner if you find one):\nNow.gg\nGoogle (any services that relate to google)\nRoblox\nYoutube\nChatGPT'); showModal('Since I paid for this surf web domain, please do not use too much websites as I am paying for this');
+          localStorage.setItem(localStorageKey3, 'true');
+        }
+        showIframe('https://auth.teaching.za.com/indev'); 
+        
       }
           // UPDATED FUNCTION: Open Iframe Content in New Window (with Cloak)
           function openIframeInNewWindow() {
@@ -1958,13 +1969,14 @@ async function runUrlCloak() { // MUST be async now
 
           // --- NEW ---
           // Show the disclaimer *after* the loading screen is hidden
-const localStorageKey = 'advisoryShown_v2_2_0';        
+const localStorageKey = 'advisoryShown_v2_2_0';  
+        if (localStorage.getItem(localStorageKey) === null) {
         setTimeout(() => {
-        showModal("ADVISORY NOTES:\nTHE OWNER TAKES NO RESPONSIBILITY FOR YOUR ACTIONS!\n\nIf the games or anything running in the website gets blocked from studentkeeper, spam Homepage until it loads.\n\nIf you are having trouble with navigation tools please switch to utilities tab and select 'Starlight GG helper' to help with navigating\n\nIf your browser gets navigated away from the website, I suggest closing out the website that came from here.\n\nVersion: 2.2.0");
+       
+          showModal("ADVISORY NOTES:\nTHE OWNER TAKES NO RESPONSIBILITY FOR YOUR ACTIONS!\n\nIf the games or anything running in the website gets blocked from studentkeeper, spam Homepage until it loads.\n\nIf you are having trouble with navigation tools please switch to utilities tab and select 'Starlight GG helper' to help with navigating\n\nIf your browser gets navigated away from the website, I suggest closing out the website that came from here.\n\nVersion: 2.2.0");
         
         showModal("Redirect on: redirects to google when tab unfocused/switched. \nRedirect off: covers screen white until you click screen then click 'E' (If you click 'SpaceBar' on the webpage, the webpage redirects to google)");
         
-        showModal("TIP: if studentkeeper keeps blocking this page, turn off internet, then turn back on!");
         
         // After showing all the modals, set the flag in localStorage
         // This prevents the modals from showing again on subsequent visits
