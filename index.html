@@ -1877,10 +1877,10 @@ hideiframe();
 document.getElementById('url-cloak-input').value = ""; // Assuming this is your new input ID
 
               // The "Select Preset..." (empty value) was chosen
-        localStorage.setItem(FAVICON_KEY, faviconURL);
+        localStorage.setItem(customFaviconURL, faviconURL);
 
               // The "Select Preset..." (empty value) was chosen
-        localStorage.setItem(TITLE_KEY, selected);
+        localStorage.setItem(customPageTitle, selected);
 
           } else {
 
@@ -2058,6 +2058,7 @@ async function fetchTitleWithProxy(urlInput) {
         return errorMsg; 
     }
 }
+      
 async function runUrlCloak() { // MUST be async now
     const urlInput = document.getElementById('url-cloak-input'); 
     const url = urlInput ? urlInput.value.trim() : "";
