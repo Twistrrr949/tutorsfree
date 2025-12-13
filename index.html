@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -1296,8 +1297,7 @@ width: 80%;
                 <button onclick="runUrlCloak()">Fetch & Apply URL Cloak</button>
                 </div>
               </div>
-            
-              </div>
+            </div>
 <div class="menu-section-title">⚙️ Page Security</div>
 <div class="settings-item">
     <label for="theme-toggle-switch">Theme:</label>
@@ -1681,19 +1681,6 @@ hideiframe();
               }
           }
 
-          const themeToggleBtn = document.getElementById('theme-toggle');
-
-          // --- THEME & APPEARANCE ---
-          themeToggleBtn.innerHTML =  '<i class="fas fa-sun"></i>';
-          function applyTheme(theme) {
-              root.setAttribute('data-theme', theme);
-              themeToggleBtn.innerHTML = theme === 'dark' ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
-              localStorage.setItem('theme', theme);
-          }
-          themeToggleBtn.addEventListener('click', () => {
-              const newTheme = (root.getAttribute('data-theme') || 'light') === 'light' ? 'dark' : 'light';
-              applyTheme(newTheme);
-          });
 
           // NEW: Function to apply background pattern
           function applyPattern() {
@@ -1705,8 +1692,7 @@ hideiframe();
 
           // Check for saved theme and pattern on load
           document.addEventListener('DOMContentLoaded', () => {
-              const savedTheme = localStorage.getItem('theme') || 'light';
-              applyTheme(savedTheme);
+
 
               const savedPattern = localStorage.getItem('selectedPattern') || 'lines';
               document.getElementById('pattern-select').value = savedPattern;
@@ -2565,3 +2551,4 @@ setInterval(checkOccupancy, 1000); // 1000 milliseconds = 1 second
 
   </body>
 </html>
+
