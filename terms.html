@@ -186,6 +186,57 @@
         window.location.href = '/'; 
     }
 </script>
+/**
+ * Applies custom page title and favicon URL,
+ * and saves them to Local Storage for persistence.
+ * @param {string} customTitle - The new document title.
+ * @param {string} faviconURL - The URL for the new favicon.
+ */
+function applyCustomCloak(customTitle, faviconURL) {
+    if (customTitle) {
+        document.title = customTitle;
+        // 🔑 FIXED: Use the constant TITLE_KEY for saving
+        localStorage.setItem(TITLE_KEY, customTitle);
+    }
+    
+    if (faviconURL) {
+        // 🔑 FIXED: Use the constant FAVICON_KEY for saving
+        localStorage.setItem(FAVICON_KEY, faviconURL);
+        
+        let faviconEl = document.getElementById("dynamic-favicon");
+        if (!faviconEl) {
+            faviconEl = document.createElement("link");
+            faviconEl.rel = "icon";
+            faviconEl.id = "dynamic-favicon";
+            document.head.appendChild(faviconEl);
+        }
+        faviconEl.href = faviconURL;
+    }
+}
+
+/**
+ * Retrieves saved title and favicon from Local Storage and applies them.
+ * If no cloak is saved, the current default title/favicon remain unchanged.
+ */
+function applyStoredCloak() {
+
+    // 1. Retrieve the stored data using the correct constants
+    const storedTitle = localStorage.getItem(TITLE_KEY);
+    const storedFavicon = localStorage.getItem(FAVICON_KEY);
+
+
+    // CRITICAL IMPROVEMENT: Only apply the cloak if a title or favicon was saved.
+    if (storedTitle || storedFavicon) {
+         // 2. Apply the retrieved data
+        applyCustomCloak(storedTitle, storedFavicon);
+    } 
+    
+    
+}
+window.addEventListener('DOMContentLoaded', () => {
+    // Call the function directly when the basic HTML structure is ready
+          setTimeout(applyStoredCloak, 600);
+});
 
 </body>
 </html>
