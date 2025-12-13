@@ -2,6 +2,7 @@
  * settingsync.js
  * * Manages security features and dynamically creates the required overlay element and CSS.
  * * This script should be loaded via <script src="settingsync.js"></script>
+ * * REVISED: Refined toggleContentVisibility using requestAnimationFrame for reliable fading.
  */
 
 (function() {
@@ -24,6 +25,7 @@
             overlay.id = 'overlay';
             overlay.innerHTML = `
                 <div style="text-align: center;">
+
                 </div>
             `;
             document.body.appendChild(overlay);
@@ -38,14 +40,23 @@
                 left: 0;
                 width: 100%;
                 height: 100%;
-                background-color: white; /* You can change this color */
-                z-index: 99999; /* Ensure it covers everything */
+                background-color: white; 
+                z-index: 99999;
                 display: none;
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
                 color: black;
                 font-family: sans-serif;
+                
+                /* --- MODIFIED CSS FOR FADE EFFECT --- */
+                opacity: 1; 
+                transition: opacity 0.3s ease-in-out; /* Transition effect */
+            }
+            /* The 'hidden' class controls the opacity for the fade */
+            #overlay.hidden {
+                opacity: 0; 
+                pointer-events: none;
             }
             #overlay h1 {
                 font-size: 2em;
@@ -61,12 +72,28 @@
     // === CORE SECURITY LOGIC ===
     
     function toggleContentVisibility(showContent) {
-        if (!overlay) return; // Should not happen after setup, but safe check
+        if (!overlay) return; 
 
         if (showContent) {
-            overlay.style.display = 'none';
+            // FADE OUT: 
+            overlay.classList.add('hidden'); // Start transition to opacity 0
+            
+            // Wait for the transition to finish before setting display: 'none'
+            setTimeout(() => {
+                overlay.style.display = 'none';
+            }, 300); // 300ms matches the CSS transition time
+            
         } else {
+            // FADE IN:
+            // 1. Prepare: Set display to 'flex' so it's in the DOM, but keep opacity 0 via 'hidden' class
+            overlay.classList.add('hidden');
             overlay.style.display = 'flex'; 
+            
+            // 2. Use requestAnimationFrame to ensure the browser has rendered 'display: flex'
+            requestAnimationFrame(() => {
+                // 3. Remove 'hidden' class, allowing opacity to transition from 0 to 1
+                overlay.classList.remove('hidden'); 
+            });
         }
     }
 
@@ -90,14 +117,13 @@
 
         // 2. Redirect/Overlay Listener (visibilitychange)
         document.addEventListener('visibilitychange', () => {
-            // Default ON if not set
             const redirectEnabled = localStorage.getItem(STORAGE_KEY_REDIRECT) === 'true' || localStorage.getItem(STORAGE_KEY_REDIRECT) === null;
 
             if (document.visibilityState === 'hidden') {
                 if (redirectEnabled) {
                     timeoutHandle = setTimeout(redirect, REDIRECT_DELAY);
                 } else {
-                    toggleContentVisibility(false); // Show overlay
+                    toggleContentVisibility(false); // Show overlay (Fade In)
                 }
             } else {
                 if (timeoutHandle) {
@@ -121,16 +147,13 @@
                 
                 // 'E' key: Dismiss the cover (show content)
                 if (event.key.toUpperCase() === 'E') {
-                    toggleContentVisibility(true); // Hides the overlay
+                    toggleContentVisibility(true); // Hides the overlay with fade
                     event.preventDefault();
                 }
                 
                 // 'Space' key: Execute immediate redirect
                 
                 if (event.key === ' ') {
-                            if(tabProtectionEnabled){
-            tabProtectionEnabled = false
-          }
                     redirect(); // Executes immediate redirect
                     event.preventDefault();
                 }
@@ -139,13 +162,9 @@
     }
 
     // === ENTRY POINT ===
-    // We wait for the DOM to be fully loaded before injecting CSS and elements.
     document.addEventListener('DOMContentLoaded', () => {
-        // Run setup functions
         injectOverlayCSS();
         createOverlayElement();
-        
-        // Start monitoring security events
         initializeListeners();
 
         console.log('[SETTINGSYNC] Security script is fully active and monitoring.');
