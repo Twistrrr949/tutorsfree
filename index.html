@@ -902,12 +902,17 @@ width: 80%;
                   justify-content: center;
                   align-items: center;
                   /* Text removed to keep it secret */
+                
                   cursor: none;
-              }
-              /* --- Body content container (used for hiding/showing) --- */
-              #content-wrapper {
-                  transition: opacity 0.3s;
-              }
+                /* --- MODIFIED CSS FOR FADE EFFECT --- */
+                opacity: 1; 
+                transition: opacity 0.3s ease-in-out; /* Transition effect */
+            }
+            /* The 'hidden' class controls the opacity for the fade */
+            #offscreen-overlay.hidden {
+                opacity: 0; 
+                pointer-events: none;
+            }
       #quote-display {
           font-size: 1.2em;
           font-weight: 300;
