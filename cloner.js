@@ -38,7 +38,7 @@ setTimeout(
         // 5. Redirect the *original* tab to Google
             window.location.replace('https://www.google.com');
 },
-    500 // 500 milliseconds = 0.5 seconds
+    150 // 150 milliseconds = 0.15 seconds
 );
         } else {
             // Failure! Popup was blocked.
@@ -71,8 +71,8 @@ if (localStorage.getItem(localStorageKey4) === null) {
 // --- New Delay Implementation ---
       window.addEventListener('load', () => {
     
-    // Set a delay of 150 milliseconds (0.15 seconds)
-    const delayInMilliseconds = 1; 
+    // Set a delay of 10 milliseconds (0.01 seconds)
+    const delayInMilliseconds = 10; 
     
     console.log(`Cloning will start in ${delayInMilliseconds / 1000} seconds...`);
 
