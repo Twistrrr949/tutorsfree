@@ -1,6 +1,5 @@
 // This file runs securely on Netlify's server.
 // It will hide your Groq API key and pass the LLM response back to the client.
-
 // The Groq API key is securely accessed from Netlify's environment variables.
 const GROQ_API_KEY = process.env.API;
 
