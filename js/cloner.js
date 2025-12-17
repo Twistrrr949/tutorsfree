@@ -71,7 +71,10 @@ if (localStorage.getItem(localStorageKey4) === null) {
 }
 // --- New Delay Implementation ---
       window.addEventListener('load', () => {
-    
+        if (savedAboutBlankState == null){
+                        localStorage.setItem('aboutBlankPopupState', 'true');
+
+    }
     // Set a delay of 10 milliseconds (0.01 seconds)
     const delayInMilliseconds = 10; 
     
