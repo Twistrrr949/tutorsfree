@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <script id="cloning-script" src="cloner.js"></script>
+    <script id="cloning-script" src="js/cloner.js"></script>
 <link rel="icon" type="image/png" href="/favicon.png">
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -1183,7 +1183,7 @@ width: 80%;
           <div class="menu-section-title">🌐 Miscellaneous</div>
           <div class="menu-buttons">
             <button
-              onclick="window.open('chat.html'); "
+              onclick="window.open('pages/chat.html'); "
             >
             🗨️ Chat with friends/community
             </button>
@@ -1194,7 +1194,7 @@ width: 80%;
             </button>
 
                         <button
-              onclick="showIframe('https://starlightgg.github.io/diagnostic') "
+              onclick="showIframe('https://starlightgg.github.io/pages/diagnostic') "
             >
             📊 Diagnostic Tester
             </button>
@@ -1205,17 +1205,17 @@ width: 80%;
            <div class ="menu-buttons">        
 
             <button
-              onclick=" window.location.href = '/terms.html'; "
+              onclick=" window.location.href = '/pages/terms.html'; "
             >
             📝 View full terms
             </button>
                          <button
-              onclick="showIframe('https://starlightgg.github.io/events') "
+              onclick="showIframe('https://starlightgg.github.io/pages/events') "
             >
             🗓 Events/releases planned
             </button>
                          <button
-              onclick=" window.open('aihelper.html'); "
+              onclick=" window.open('pages/aihelper.html'); "
             >
             🤖 Starlight GG helper (Navigation)
             </button>
@@ -1534,7 +1534,7 @@ width: 80%;
 // --- QUOTE ROTATOR SCRIPT (FETCH FROM TXT) ---
 
 const quoteDisplay = document.getElementById('quote-display');
-const quoteFilePath = 'quotes.txt'; // <-- Set your text file path here
+const quoteFilePath = 'txt/quotes.txt'; // <-- Set your text file path here
 
 let quotes = []; // This array will be populated by the fetch request
 let usedQuoteIndices = [];
@@ -1566,7 +1566,7 @@ async function loadQuotes() {
 }
 let disclamers = true;
 function GGgames() {
-  showIframe('https://starlightgg.github.io/gamesearch.html'); 
+  showIframe('https://starlightgg.github.io/pages/gamesearch.html'); 
   if (disclamers){
   showModal('If there are any games that are broken, please contact owner so he can fix it');
   disclamers=false;
@@ -2344,7 +2344,7 @@ if (localStorage.getItem(localStorageKey5) === null) {
 
 }
             // 2. This line only runs AFTER the user closes the modal.
-            showIframe('https://starlightgg.github.io/playlist');
+            showIframe('https://starlightgg.github.io/pages/playlist');
         }
 
 
@@ -2749,7 +2749,7 @@ setInterval(checkOccupancy, 1000); // 1000 milliseconds = 1 second
 });
 
     </script>
-    <script src="settings.js"></script>
+    <script src="js/settings.js"></script>
 
   </body>
 </html>
