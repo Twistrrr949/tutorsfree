@@ -5,6 +5,7 @@ const FADE_DURATION_CSS = `${FADE_DURATION_MS / 1000}s`; // Creates "0.3s" for C
 // --- GLOBAL FLAG ---
 let manualExitIntent = false;
 let blankWindow = null; // Kept as a declaration, but unused for action here
+let isInitialLoad = true; // <<< NEW FLAG: Tracks if the script is loading for the first time
 
 
 // === IMMEDIATE EXECUTION: THEME ATTRIBUTE LOAD & CSS INJECTION ===
@@ -61,6 +62,8 @@ let popupEnabled = localStorage.getItem('aboutBlankPopupState') !== 'false';
     
     // Sets local storage item to 'true' or 'false'
     localStorage.setItem('aboutBlankPopupState', popupEnabled ? 'true' : 'false');
+    // <<< NEW: Set the flag to false before dispatching, signaling a user-initiated change
+    isInitialLoad = false; 
     document.dispatchEvent(new Event('securityToggle'));
 }
 
@@ -204,15 +207,20 @@ setTimeout(() => {
     }
     
     // UI UPDATE FUNCTION FOR ABOUT BLANK
-    function updateAboutBlankUI(isEnabled) {
+    function updateAboutBlankUI(isEnabled) { 
         if (!aboutBlankToggleSwitch) return;
+        
         if (isEnabled) {
             aboutBlankToggleSwitch.classList.add('switch-on');
             if(aboutBlankSwitchIcon) aboutBlankSwitchIcon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />`;
         } else {
             aboutBlankToggleSwitch.classList.remove('switch-on');
             if(aboutBlankSwitchIcon) aboutBlankSwitchIcon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />`;
-            showModal("I wouldn't recommend turning this option off since 'GoGuardian' can see your tabs and this can popup in history, if you want, you can enable it back.");
+            
+            // <<< CHANGE: Only show modal if it's NOT the initial page load
+            if (!isInitialLoad) { 
+                 showModal("I wouldn't recommend turning this option off since 'GoGuardian' can see your tabs and this can popup in history, if you want, you can enable it back.");
+            }
         }
     }
 
@@ -335,12 +343,15 @@ setTimeout(() => {
         const protEnabled = localStorage.getItem(STORAGE_KEY_PROTECTION) !== 'false';
         const redirEnabled = localStorage.getItem(STORAGE_KEY_REDIRECT) === 'true';
         const overlayEnabled = localStorage.getItem(STORAGE_KEY_OVERLAY) !== 'false';
-        const savedAboutBlankState = localStorage.getItem(STORAGE_KEY_ABOUT_BLANK) === 'false'; 
+        const savedAboutBlankState = localStorage.getItem(STORAGE_KEY_ABOUT_BLANK) !== 'false'; 
 
         updateProtectionUI(protEnabled);
         updateRedirectUI(redirEnabled);
         updateOverlayUI(overlayEnabled);
         updateAboutBlankUI(savedAboutBlankState); 
+        
+        // After any toggle event is processed, we ensure the initial load flag is set to false
+        isInitialLoad = false;
 
         // Control the visibility of the Overlay option
         if (overlayOptionContainer) {
@@ -364,14 +375,15 @@ setTimeout(() => {
     const savedProtectionState = localStorage.getItem(STORAGE_KEY_PROTECTION) !== 'false'; 
     const savedRedirectState = localStorage.getItem(STORAGE_KEY_REDIRECT) === 'true'; 
     const savedOverlayState = localStorage.getItem(STORAGE_KEY_OVERLAY) !== 'false';
-    const savedAboutBlankState = localStorage.getItem(STORAGE_KEY_ABOUT_BLANK) === 'false'; 
+    const savedAboutBlankState = localStorage.getItem(STORAGE_KEY_ABOUT_BLANK) !== 'false'; 
     const savedTheme = localStorage.getItem('theme') || 'light';
     const savedStatsState = localStorage.getItem(STORAGE_KEY_STATS) === 'true'; 
+    
     // Apply initial UI states
     updateProtectionUI(savedProtectionState);
     updateRedirectUI(savedRedirectState);
     updateOverlayUI(savedOverlayState);
-    updateAboutBlankUI(savedAboutBlankState); 
+    updateAboutBlankUI(savedAboutBlankState);
     applyThemeUI(savedTheme);
     updateStatsUI(savedStatsState);
 
@@ -379,6 +391,12 @@ setTimeout(() => {
     if (overlayOptionContainer) {
         overlayOptionContainer.style.display = savedRedirectState ? 'none' : 'flex';
     }
+    
+    // <<< NEW: After all initial UI updates are done, set the flag to false.
+    // Subsequent calls to updateAboutBlankUI will be considered user-initiated.
+    setTimeout(() => {
+        isInitialLoad = false;
+    }, 1200); // Wait slightly longer than the main timeout (1000ms) to ensure all initial UI rendering is complete.
     
 }, 1000);
 });
