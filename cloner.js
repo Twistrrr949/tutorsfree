@@ -36,16 +36,14 @@ function executeCloningLogic() {
 
 
               const savedLink = localStorage.getItem('LINKTAB_KEY');
-if(savedLink){
-  window.location.replace(savedLink);
-}else{
-  window.location.replace('https://google.com/')
-}
-  } else {
-            if(localStorage.getItem('aboutBlankPopupState')){
+                if(savedLink){
+                  window.location.replace(savedLink);
+                }else{
+                  window.location.replace('https://google.com/')
+                }
+          } else {
             // Failure! Popup was blocked.
                 showModal("Please enable popups!");
-            }
                         // 1. Find the script element itself
             const cloakElement = document.getElementById('cover');
             
@@ -53,7 +51,14 @@ if(savedLink){
             if (cloakElement) {
                 cloakElement.remove();
             }
-        }
+        }else{
+            const cloakElement = document.getElementById('cover');
+            
+            // 2. Remove the script element from the original document
+            if (cloakElement) {
+                cloakElement.remove();
+            }
+    }
     }
 }
 function alertthing() {
