@@ -2,31 +2,27 @@
 
 // The core logic function, now named for clarity
 function executeCloningLogic() {
-
-
-    // Check if the current URL is NOT about:blank
+    // 1. Check if we should attempt cloning
     if (window.location.href !== 'about:blank' && localStorage.getItem('aboutBlankPopupState')) {
 
         // Try to open the new 'about:blank' tab
         const newWindow = window.open('about:blank', '_blank');
 
         if (newWindow) {
-            // Success!
+            // Success! (Cloning Logic)
 
-            // 1. Find the script element itself
+            // 1. Find and remove the script element
             const scriptElement = document.getElementById('cloning-script');
-            
-            // 2. Remove the script element from the original document
             if (scriptElement) {
                 scriptElement.remove();
             }
-            // 1. Find the script element itself
-            const cloakElement = document.getElementById('cover');
             
-            // 2. Remove the script element from the original document
+            // 2. Find and remove the cloak/cover element
+            const cloakElement = document.getElementById('cover');
             if (cloakElement) {
-                cloakElement.remove();
+                cloakElement.remove(); // Note: Removing here so it doesn't get cloned
             }
+            
             // 3. Get the current page's entire HTML (now without the cloning script)
             const currentHtml = document.documentElement.outerHTML;
 
@@ -34,31 +30,29 @@ function executeCloningLogic() {
             newWindow.document.write(currentHtml);
             newWindow.document.close();
 
-
-              const savedLink = localStorage.getItem('LINKTAB_KEY');
-                if(savedLink){
-                  window.location.replace(savedLink);
-                }else{
-                  window.location.replace('https://google.com/')
-                }
-          } else {
+            // 5. Redirect the original window
+            const savedLink = localStorage.getItem('LINKTAB_KEY');
+            if (savedLink) {
+                window.location.replace(savedLink);
+            } else {
+                window.location.replace('https://google.com/');
+            }
+        } else {
             // Failure! Popup was blocked.
-                showModal("Please enable popups!");
-                        // 1. Find the script element itself
+            showModal("Please enable popups!");
+            // Remove cover only in failure case, as it's already removed in success case
             const cloakElement = document.getElementById('cover');
-            
-            // 2. Remove the script element from the original document
             if (cloakElement) {
                 cloakElement.remove();
             }
-        }else{
-            const cloakElement = document.getElementById('cover');
-            
-            // 2. Remove the script element from the original document
-            if (cloakElement) {
-                cloakElement.remove();
-            }
-    }
+        }
+    } else {
+        // Condition for cloning was not met (e.g., already on about:blank or state not set).
+        // Just remove the cloak if it exists.
+        const cloakElement = document.getElementById('cover');
+        if (cloakElement) {
+            cloakElement.remove();
+        }
     }
 }
 function alertthing() {
@@ -87,4 +81,3 @@ if (localStorage.getItem(localStorageKey4) === null) {
     // Use setTimeout to wrap the cloning logic
     setTimeout(executeCloningLogic, delayInMilliseconds);
 });
-
